@@ -20,6 +20,13 @@ prototype/.qrb-data/
 *.swp
 *.swo
 
+# Node (whitepaper PDF build)
+node_modules/
+package-lock.json
+
+# Whitepaper build intermediates
+whitepaper/_whitepaper-*.html
+
 # OS
 .DS_Store
 Thumbs.db
