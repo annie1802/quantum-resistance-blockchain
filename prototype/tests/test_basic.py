@@ -1,0 +1,143 @@
+"""Tests básicos del prototipo QRB.
+
+Ejecutar desde la carpeta prototype/:
+    python -m tests.test_basic
+o:
+    python tests/test_basic.py
+"""
+
+import sys
+import tempfile
+from pathlib import Path
+
+# Permite ejecutar como script suelto:
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from qrb.chain import Chain  # noqa: E402
+from qrb.crypto import address_from_pubkey, generate_keypair, sign, verify  # noqa: E402
+from qrb.transaction import Transaction  # noqa: E402
+from qrb.wallet import Wallet  # noqa: E402
+
+
+def test_dilithium_sign_verify() -> None:
+    pk, sk = generate_keypair()
+    msg = b"hola QRB"
+    sig = sign(msg, sk)
+    assert verify(msg, sig, pk), "firma valida no verifica"
+    assert not verify(b"otro mensaje", sig, pk), "firma alterada verifica (bug)"
+
+
+def test_address_deterministic_and_format() -> None:
+    pk, _ = generate_keypair()
+    a1 = address_from_pubkey(pk)
+    a2 = address_from_pubkey(pk)
+    assert a1 == a2, "addresses no son deterministas"
+    assert a1.startswith("0x"), f"address sin prefijo 0x: {a1}"
+    assert len(a1) == 42, f"address con longitud incorrecta: {len(a1)} != 42"
+
+
+def test_transaction_sign_verify_tamper() -> None:
+    w = Wallet.create("alice")
+    tx = Transaction(
+        sender=w.address, recipient="0x" + "ab" * 20, amount=100, nonce=0
+    )
+    tx.sign_with(w.public_key, w.private_key)
+    assert tx.is_valid(), "transaccion recien firmada no valida"
+
+    # Alteramos el monto y la firma debe fallar.
+    tx.amount = 200
+    assert not tx.is_valid(), "transaccion alterada sigue siendo valida (bug)"
+
+
+def test_end_to_end_chain_flow() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        data_dir = Path(tmp)
+        wallets_dir = data_dir / "wallets"
+
+        founder = Wallet.create("founder")
+        founder.save(wallets_dir)
+        alice = Wallet.create("alice")
+        alice.save(wallets_dir)
+
+        chain = Chain(data_dir)
+        chain.init_genesis(founder.address, 1_000_000)
+
+        # Balance inicial
+        assert chain.state.balance_of(founder.address) == 1_000_000
+        assert chain.state.balance_of(alice.address) == 0
+
+        # Crear y enviar transacción
+        tx = Transaction(
+            sender=founder.address,
+            recipient=alice.address,
+            amount=500,
+            nonce=0,
+        )
+        tx.sign_with(founder.public_key, founder.private_key)
+        chain.add_to_mempool(tx)
+        assert len(chain.mempool) == 1
+
+        # Minar bloque
+        block = chain.propose_block(
+            founder.address, founder.public_key, founder.private_key
+        )
+        assert block.index == 1
+        assert len(block.transactions) == 1
+        assert block.is_valid()
+        assert len(chain.mempool) == 0
+
+        # Estado actualizado
+        assert chain.state.balance_of(founder.address) == 999_500
+        assert chain.state.balance_of(alice.address) == 500
+        assert chain.state.nonce_of(founder.address) == 1
+        assert chain.height() == 2  # genesis + 1 block
+
+
+def test_double_spend_rejected() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        data_dir = Path(tmp)
+        wallets_dir = data_dir / "wallets"
+        founder = Wallet.create("founder")
+        founder.save(wallets_dir)
+        alice = Wallet.create("alice")
+        alice.save(wallets_dir)
+
+        chain = Chain(data_dir)
+        chain.init_genesis(founder.address, 100)
+
+        tx1 = Transaction(
+            sender=founder.address, recipient=alice.address, amount=60, nonce=0
+        )
+        tx1.sign_with(founder.public_key, founder.private_key)
+        chain.add_to_mempool(tx1)
+
+        # Segunda tx por 60 (excede saldo restante 40)
+        tx2 = Transaction(
+            sender=founder.address, recipient=alice.address, amount=60, nonce=1
+        )
+        tx2.sign_with(founder.public_key, founder.private_key)
+        try:
+            chain.add_to_mempool(tx2)
+            raise AssertionError("doble gasto no detectado")
+        except ValueError:
+            pass  # esperado
+
+
+def run_all() -> None:
+    tests = [
+        test_dilithium_sign_verify,
+        test_address_deterministic_and_format,
+        test_transaction_sign_verify_tamper,
+        test_end_to_end_chain_flow,
+        test_double_spend_rejected,
+    ]
+    for t in tests:
+        print(f"  -> {t.__name__} ... ", end="", flush=True)
+        t()
+        print("OK")
+    print(f"\nTodos los tests pasaron ({len(tests)}/{len(tests)})")
+
+
+if __name__ == "__main__":
+    print("Ejecutando tests del prototipo QRB:\n")
+    run_all()
