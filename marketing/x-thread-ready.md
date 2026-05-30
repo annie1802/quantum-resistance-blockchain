@@ -1,6 +1,34 @@
 # Hilo de lanzamiento X — listo para publicar
 
-URLs ya sustituidas. Copia tuit por tuit en el orden indicado.
+URLs ya sustituidas. Dos modalidades de publicación.
+
+---
+
+## 🟢 Soft launch — tuit suelto (29 mayo 2026, 19:00-22:00 Madrid)
+
+```
+QRB ya es público — Quantum-Resistance Blockchain.
+
+L2 post-cuántica sobre Ethereum. Firmas ML-DSA-65 + privacidad PQ con STARKs (Fase 3+).
+
+Whitepaper y prototipo Python en GitHub. Open source MIT.
+
+Hilo largo el martes.
+
+https://github.com/Fiyiware/quantum-resistance-blockchain
+```
+
+Después de publicar: **fijar (Pin) a perfil**. Mantener fijado hasta el martes.
+
+---
+
+## 🔵 Hilo principal — 10 tuits (martes 2 junio, 17:00-20:00 Madrid)
+
+Justo antes de publicar el primer tuit del hilo:
+1. Quitar el pin del soft-launch.
+2. Publicar el tuit 1/10 (abajo).
+3. Esperar a que aparezca → responder al propio tuit 1/10 con el tuit 2/10. Repetir hasta el 10/10.
+4. Fijar (Pin) el tuit 1/10 a perfil.
 
 ---
 
