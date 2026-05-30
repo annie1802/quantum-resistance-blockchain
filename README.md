@@ -163,6 +163,21 @@ Released under the [MIT License](LICENSE) for maximum compatibility with the ope
 
 ---
 
+## AI assistance disclosure
+
+QRB is developed with substantial AI assistance, primarily Anthropic's Claude. This includes code generation, technical documentation drafting, market research synthesis, and editorial review.
+
+The role separation is intentional and explicit:
+
+- **AI is the executor.** It accelerates writing, structures content, and removes friction.
+- **The human founder is the director.** All strategic, architectural, economic and editorial decisions are made by the founder. AI does not choose what QRB is — it helps express what it is.
+
+We believe transparent disclosure of AI assistance is more honest than hiding it. The software ecosystem of 2026 embraces AI tooling as a normal part of development workflows; what is not normal — and not acceptable — is pretending otherwise. Pretending to be a 10× engineer when standing on the shoulders of AI tooling is a worse signal than openly using and crediting it.
+
+The founder is responsible for understanding, validating, and maintaining everything in this repository. If something is unclear, open an issue — the answer will come from a human who can defend it.
+
+---
+
 ## Acknowledgments
 
 - **Charles Bennett and Gilles Brassard** for inventing quantum cryptography in 1984 and receiving the 2026 Turing Award.
