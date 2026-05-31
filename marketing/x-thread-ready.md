@@ -50,9 +50,9 @@ El mayor robo de la historia ha empezado.
 
 Te presento QRB — Quantum-Resistance Blockchain.
 
-La primera L2 sobre Ethereum diseñada desde el origen para ser resistente a ataques con ordenadores cuánticos.
+Un proyecto en Fase 0 (research + prototipo) para construir una L2 sobre Ethereum resistente a ataques cuánticos.
 
-No es teoría. Es código y un whitepaper de 24 páginas que acabo de publicar.
+No es teoría: whitepaper de 24 páginas + prototipo Python con firmas Dilithium reales y CI verde, ya en GitHub.
 
 ---
 
@@ -83,12 +83,12 @@ Bitcoin y Ethereum sufren las dos. Las "soluciones" actuales solo cubren la prim
 
 **Tuit 5/10**
 
-QRB cubre las dos:
+QRB está diseñada para cubrir las dos:
 
-🔐 Firmas ML-DSA-65 (estándar NIST 2024) para autenticación.
-👁️ STARKs + lattice commitments para privacidad post-cuántica real.
+🔐 Firmas ML-DSA-65 (NIST 2024) → **implementadas HOY** en el prototipo.
+👁️ STARKs + lattice commitments → diseño de privacidad PQ para Fase 3+.
 
-¿Por qué STARKs? Porque los SNARKs de Aleo y Aztec NO son post-cuánticos. Su privacidad es falsa a largo plazo. Cosechan hoy, descifran mañana.
+¿Por qué STARKs? Los SNARKs de Aleo y Aztec NO son post-cuánticos. Su privacidad es falsa a largo plazo. Cosechan hoy, descifran mañana.
 
 ---
 
@@ -112,23 +112,20 @@ Integración planificada con QKD (Quantum Key Distribution).
 
 Bennett y Brassard ganaron el Turing 2026 por su BB84 de 1984. Su criptografía cuántica física se despliega ya en Alemania, China, Telefónica.
 
-QRB será la primera blockchain que combine la respuesta matemática (PQ) Y la respuesta física (QKD).
+QRB se propone como la primera blockchain en integrar ambas: la respuesta matemática (PQ) Y la física (QKD). Hoy es visión documentada en el whitepaper; piloto institucional planificado para Fase 3+.
 
 ---
 
 **Tuit 8/10**
 
-Estado actual:
+Estado real (Fase 0):
 
-✅ Whitepaper v0.2 publicado (PDF, 24 pp)
-✅ Prototipo Python funcional con firmas Dilithium reales
+✅ Whitepaper v0.2 (PDF, 24 pp)
+✅ Prototipo Python: firmas Dilithium reales, tests, CI verde en GitHub Actions
 ✅ Open source MIT
+⏳ Lo que NO hay todavía: EVM, bridge, secuenciador. Es Fase 1+, va con grants.
 
-Buscando colaboradores:
-- Dev Rust/Go (blockchain client)
-- Criptógrafo (retículos / Dilithium)
-- Dev frontend (wallet + explorer)
-- Technical writer ES/EN
+Buscando: Rust/Go dev (blockchain client), criptógrafo (retículos), frontend, technical writer ES/EN.
 
 DMs abiertos.
 

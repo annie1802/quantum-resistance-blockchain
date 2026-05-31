@@ -13,6 +13,7 @@ from pathlib import Path
 # Permite ejecutar como script suelto:
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from qrb.block import Block  # noqa: E402
 from qrb.chain import Chain  # noqa: E402
 from qrb.crypto import address_from_pubkey, generate_keypair, sign, verify  # noqa: E402
 from qrb.transaction import Transaction  # noqa: E402
@@ -123,6 +124,42 @@ def test_double_spend_rejected() -> None:
             pass  # esperado
 
 
+def test_block_proposer_pubkey_must_match_address() -> None:
+    """Defensa contra suplantación del proposer: si la pubkey adjunta al
+    bloque no corresponde a la proposer_address declarada, sign_with debe
+    rechazar la firma e is_valid debe rechazar el bloque.
+
+    Regresión correspondiente al fallo detectado en revisión externa
+    (30 de mayo de 2026).
+    """
+    founder = Wallet.create("founder")
+    impostor = Wallet.create("impostor")
+    assert founder.address != impostor.address
+
+    block = Block(
+        index=1,
+        previous_hash="0" * 64,
+        transactions=[],
+        proposer_address=founder.address,
+    )
+
+    # 1) sign_with debe rechazar la pubkey del impostor para una proposer_address de founder.
+    try:
+        block.sign_with(impostor.public_key, impostor.private_key)
+        raise AssertionError("sign_with deberia rechazar pubkey ajena al proposer")
+    except ValueError:
+        pass  # esperado
+
+    # 2) Inyectamos manualmente pubkey ajena + firma criptograficamente valida
+    #    sobre el header. is_valid debe rechazar igualmente porque la
+    #    correspondencia pubkey-address falla.
+    block.proposer_pubkey = impostor.public_key
+    block.proposer_signature = sign(block.header_payload(), impostor.private_key)
+    assert not block.is_valid(), (
+        "is_valid debe rechazar bloque con pubkey que no corresponde a proposer_address"
+    )
+
+
 def run_all() -> None:
     tests = [
         test_dilithium_sign_verify,
@@ -130,6 +167,7 @@ def run_all() -> None:
         test_transaction_sign_verify_tamper,
         test_end_to_end_chain_flow,
         test_double_spend_rejected,
+        test_block_proposer_pubkey_must_match_address,
     ]
     for t in tests:
         print(f"  -> {t.__name__} ... ", end="", flush=True)

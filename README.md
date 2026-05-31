@@ -4,8 +4,11 @@
 >
 > — **Gilles Brassard**, co-inventor of quantum cryptography (BB84, 1984), Turing Award 2026
 
-**QRB is the first Layer 2 blockchain on Ethereum designed from day one to be resistant to quantum-computer attacks** — covering both **authentication** (post-quantum signatures via ML-DSA-65, NIST FIPS 204) and **confidentiality** (post-quantum privacy layer built on STARKs, Phase 3+ vision).
+**QRB is a research and prototype track for a post-quantum Layer 2 blockchain on Ethereum-compatible infrastructure.** Phase 0 today: a working Python prototype with real ML-DSA-65 (NIST FIPS 204) signatures, a 24-page whitepaper laying out the technical, economic and regulatory model, and the open-source artifacts to apply for non-dilutive grants. Phase 1+ ahead: EVM execution layer, account abstraction with PQ keys, rollup bridge to Ethereum, public testnet — and an evolving research line toward post-quantum confidentiality on STARKs (Phase 3+ vision).
 
+This README is deliberately careful to distinguish **implemented**, **designed**, **research** and **vision**. We owe public credibility more than hype.
+
+[![CI](https://github.com/Fiyiware/quantum-resistance-blockchain/actions/workflows/ci.yml/badge.svg)](https://github.com/Fiyiware/quantum-resistance-blockchain/actions/workflows/ci.yml)
 ![Status](https://img.shields.io/badge/status-Phase%200-0b3d91)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Whitepaper](https://img.shields.io/badge/whitepaper-v0.2-orange)
@@ -13,21 +16,48 @@
 
 ---
 
-## Why now
+## Status — what exists today vs what is on the roadmap
 
-In **April 2026**, an independent researcher used a publicly accessible cloud quantum computer to break a real elliptic-curve cryptography key, winning Project Eleven's _Q-Day Prize_. Google now estimates that breaking Bitcoin's ECDSA-256 requires **fewer than 500,000 physical qubits** — down from 20 million in 2019. Caltech researchers showed it could potentially be done with just **10,000 qubits** using atomic-architecture systems. Current commercial quantum computers already have 1,000-2,000 qubits.
+| Component | Status | Reference |
+|-----------|--------|-----------|
+| ML-DSA-65 (FIPS 204) signatures | ✅ Implemented | `prototype/qrb/crypto.py` |
+| Account-based blockchain with signed blocks, transactions and state | ✅ Implemented | `prototype/qrb/` |
+| CLI for wallets, transactions, block production and inspection | ✅ Implemented | `prototype/qrb_cli.py` |
+| End-to-end tests (signatures, tampering, double-spend, proposer impersonation) | ✅ Implemented + CI | `prototype/tests/test_basic.py` |
+| EVM-compatible execution layer with DSARECOVER precompile | 📐 Designed | Whitepaper §3.4 |
+| ERC-4337-like Account Abstraction with PQ signatures | 📐 Designed | Whitepaper §3.3 |
+| Optimistic rollup bridge to Ethereum L1 | 📐 Designed | Whitepaper §3.5 |
+| STARK-based confidentiality (stealth addresses, confidential tx, view keys) | 🔬 Research / Phase 3+ vision | Whitepaper §7.5 |
+| QKD institutional integration | 🔬 Research / Phase 3+ vision | Whitepaper §4.6 |
+| Production L2 / mainnet | 🚧 Phase 2+ deliverable | Whitepaper §8 |
 
-Vitalik Buterin (Ethereum founder): _"Crypto has until 2028 to avoid quantum collapse."_
+**The Phase 0 prototype is a single-node, local-only blockchain that demonstrates the post-quantum signature path end to end.** It does not yet implement L2 mechanics (rollup, bridge, data availability), EVM, networking, or decentralised consensus. Those are explicit Phase 1 and Phase 2 deliverables.
 
-Google has moved its internal post-quantum migration deadline to **2029**, six years ahead of the NIST 2035 standard.
-
-In January 2026, Jefferies removed 10% of its Bitcoin allocation from model portfolios citing quantum risk explicitly.
-
-The biggest cryptographic robbery in history is no longer hypothetical. **It has begun.**
+For the full technical and economic plan, read [`whitepaper/whitepaper-v0.2.pdf`](whitepaper/whitepaper-v0.2.pdf) (24 pages, Spanish).
 
 ---
 
-## What QRB does differently
+## Why now
+
+In **April 2026**, an independent researcher used a publicly accessible cloud quantum computer to break a 15-bit elliptic-curve cryptography key, winning Project Eleven's _Q-Day Prize_ ([CoinDesk coverage](https://www.coindesk.com/tech/2026/04/24/researcher-wins-1-bitcoin-bounty-for-largest-quantum-attack-on-underlying-tech)). Fifteen bits is far short of the 256 used by Bitcoin and Ethereum, but the demonstration represents a 512× capability jump in seven months — and shifts the conversation from theoretical to demonstrable.
+
+Google now estimates that breaking ECDSA-256 requires **fewer than 500,000 physical qubits** (April 2026 technical report), down from 20 million in 2019. Caltech researchers and the startup Atomic published a separate study suggesting it could potentially be done with just 10,000 qubits using atomic-architecture hardware. Current commercial quantum computers already have 1,000–2,000 qubits.
+
+Vitalik Buterin (Ethereum founder): _"Crypto has until 2028 to avoid quantum collapse."_
+
+Google has moved its **internal post-quantum migration deadline to 2029**, six years ahead of the NIST 2035 baseline.
+
+In January 2026, Jefferies removed 10% of its Bitcoin allocation from model portfolios citing quantum risk explicitly.
+
+Estimates remain estimates — the year of arrival of a cryptographically relevant quantum computer is genuinely uncertain. But the **direction is unambiguous**: in two years, the consensus window has contracted from "2040 or later" to **"2028–2032"**.
+
+Regulatory pressure tracks the same trajectory: the EU's NIS2 (in force since October 2024) requires post-quantum resistance as a duty-of-care criterion for critical infrastructure, and MiCA (in force since December 2024) sets the regulatory framework under which any future QRB token will be issued.
+
+---
+
+## What QRB aims to combine
+
+The columns below describe the **combination of capabilities QRB targets across its full roadmap**. As shown in the Status section above, only the first column is implemented in the Phase 0 prototype today; the others are designed in the whitepaper, planned for Phase 1, or part of the Phase 3+ research vision. The point of the table is not to claim feature parity now — it is to highlight that **no known project is pursuing all five together**.
 
 | Project | PQ auth | PQ privacy | EVM | Account Abstraction | QKD-ready |
 |---|:-:|:-:|:-:|:-:|:-:|
@@ -37,11 +67,9 @@ The biggest cryptographic robbery in history is no longer hypothetical. **It has
 | Aleo | ❌ (SNARK) | ✅ but NOT PQ-safe | ❌ | ❌ | ❌ |
 | Aztec | ❌ (SNARK) | ✅ but NOT PQ-safe | partial | ✅ | ❌ |
 | Monero | ❌ | ✅ but NOT PQ-safe | ❌ | ❌ | ❌ |
-| **QRB** | **✅ ML-DSA-65** | **✅ STARKs + lattice** | **✅** | **✅** | **✅ (planned)** |
+| **QRB (target across full roadmap)** | **✅ ML-DSA-65 (Phase 0)** | 🔬 STARKs (Phase 3+) | 📐 Phase 1 | 📐 Phase 1 | 🔬 Phase 3+ |
 
-**QRB is the only known project combining all five capabilities.**
-
-The privacy chains in the market today (Aleo, Aztec, Monero) build on SNARKs or non-PQ commitments — meaning their privacy is **broken at long horizons** under harvest-now-decrypt-later. QRB is the first project to call this out explicitly and to design the privacy layer on top of STARKs (hash-based, natively post-quantum).
+The privacy chains in the market today (Aleo, Aztec, Monero) build their privacy on SNARKs or non-PQ commitments — meaning their privacy is **broken at long horizons** under harvest-now-decrypt-later: data shielded today can be unshielded in the future once a cryptographically relevant quantum computer exists. QRB's research direction proposes to address this by basing its confidentiality layer on STARKs, which depend only on hash collision resistance and are therefore natively post-quantum.
 
 ---
 
@@ -58,8 +86,8 @@ quantum-resistance-blockchain/
 │   ├── qrb_cli.py                 Command-line interface
 │   ├── tests/                     End-to-end tests
 │   └── README.md                  Prototype setup and usage
-├── marketing/
-│   └── launch-kit.md              Public launch materials
+├── marketing/                     Public launch materials (X thread, launch kit)
+├── .github/workflows/             Continuous integration (GitHub Actions)
 ├── resumen.md                     ~700-word pitch (Spanish)
 ├── README.md                      This file
 └── LICENSE                        MIT
@@ -69,7 +97,7 @@ quantum-resistance-blockchain/
 
 ## Quick start — run the prototype
 
-The prototype is a minimal Python blockchain that demonstrates ML-DSA-65 signatures, account-based state, signed blocks and persistence. It runs on your laptop, single node, no networking.
+The prototype is a minimal Python blockchain that demonstrates ML-DSA-65 signatures, account-based state, signed blocks, mempool and persistence. It runs locally on your laptop, single node, no networking.
 
 **Requirements**: Python 3.10+
 
@@ -87,7 +115,7 @@ pip install -r requirements.txt
 python tests/test_basic.py
 ```
 
-You should see 5 tests pass.
+You should see all tests pass. **The same tests run on every push to `main` via GitHub Actions** (Python 3.10, 3.11 and 3.12) — see the CI badge above for current status.
 
 Then play with the CLI:
 
@@ -103,7 +131,7 @@ python qrb_cli.py wallet balance --name alice
 python qrb_cli.py chain block --index 1
 ```
 
-The blocks and state are persisted as JSON in `.qrb-data/` — open the files to inspect the ML-DSA-65 signatures (~3.3 KB each) and see how they compose into a chain.
+Blocks and state are persisted as JSON in `.qrb-data/` — open the files to inspect real ML-DSA-65 signatures (~3.3 KB each) and how they compose into a chain.
 
 See [`prototype/README.md`](prototype/README.md) for full prototype documentation.
 
@@ -111,10 +139,10 @@ See [`prototype/README.md`](prototype/README.md) for full prototype documentatio
 
 ## Roadmap
 
-| Phase | Period | Milestones | Funding |
-|-------|--------|-----------|---------|
-| **0 — Validation** | Q2-Q3 2026 | Whitepaper · Python prototype with Dilithium signatures · Public repo · Initial community | Self-funded |
-| **1 — Public testnet** | Q4 2026 - Q3 2027 | Grants (NLNet, Ethereum Foundation, Optimism RetroPGF) · Devnet · Public testnet · SDK · 5-10 dApp demos · Ethereum bridge | €100-250K (grants) |
+| Phase | Period | Deliverables | Funding |
+|-------|--------|--------------|---------|
+| **0 — Validation** | Q2-Q3 2026 | Whitepaper v0.2 · Python prototype with ML-DSA signatures · Public repo · CI · Initial community | Self-funded |
+| **1 — Public testnet** | Q4 2026 - Q3 2027 | Grants (NLNet, Ethereum Foundation, Optimism RetroPGF) · EVM execution layer · DSARECOVER precompile · ERC-4337-like AA with PQ · Devnet · Public testnet · SDK · 5-10 dApp demos · Optimistic rollup bridge | €100-250K (grants) |
 | **2 — Mainnet beta** | Q4 2027 - Q2 2028 | Audits · Production bridge · MiCA-registered token · DEX listings · 50+ contracts | €500K-2M (seed + token) |
 | **3 — GA + Privacy layer** | H2 2028 - 2030 | Sequencer decentralization · STARK confidentiality · Stealth addresses · QKD institutional pilots · Optimistic → ZK rollup migration | Self-sustaining via fees |
 
@@ -186,6 +214,7 @@ The founder is responsible for understanding, validating, and maintaining everyt
 - **Vitalik Buterin and the Ethereum Foundation** for the open L2 ecosystem this project builds on.
 - **StarkWare and the broader STARK research community** for showing that post-quantum-secure ZK proofs are practical today.
 - **Project Eleven** for the Q-Day Prize that put quantum risk on the public agenda.
+- **The first independent reviewer to push back on the original README's overpromising language.** That critique directly motivated the Status section above, the proposer-impersonation regression test, and continuous integration via GitHub Actions. Good critique makes projects stronger.
 
 ---
 
