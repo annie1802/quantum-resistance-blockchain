@@ -152,6 +152,7 @@ The result is a clear infrastructure gap that no profit-driven L1 has a structur
 ## 10. Non-technical considerations
 
 - **Regulatory positioning**. QRB explicitly aligns with MiCA. No token will be emitted during Phase 0 or Phase 1; any future token launch will be conducted via a MiCA-notified whitepaper with proper legal counsel. The privacy-layer design (Phase 3+) includes native view keys for selective disclosure, supporting compliance with NIS2 audit and AML/KYC obligations.
+- **Token is out of scope of this grant**. All Phase 1 deliverables funded by this grant are released as open source under MIT/Apache-2.0 and have no dependency on any token. Grant funds will not be used for any token-related activity. The token described in the whitepaper (§5) is a long-term Phase 2+ contingency, conditional on a working product and a MiCA-compliant process — it plays no role in the work proposed here. QRB's funding philosophy is explicitly product-first: non-dilutive grants before any token consideration.
 
 - **Open-source governance**. MIT/Apache-2.0 dual licence; all artefacts public; no closed-source dependencies in critical paths. Future Foundation entity (planned for Phase 2) will hold trademarks and grant disbursement authority but not change core protocol unilaterally.
 

@@ -237,6 +237,8 @@ QRB integra opcionalmente canales QKD para el **submission de transacciones** de
 
 ## 5. Tokenomics
 
+> **Marco previo — el token es Fase 2+, contingente y fuera del alcance de cualquier subvención.** Lo que sigue describe el modelo económico *previsto a largo plazo*, no algo activo hoy. El token QRB no se emite ni interviene en las Fases 0 y 1, que son de código abierto (MIT) y se financian con fondos propios y subvenciones públicas no dilutivas. Ningún entregable de Fase 1 depende del token. Su eventual emisión queda condicionada a (a) la existencia de un producto en funcionamiento, (b) un proceso de registro conforme a MiCA y (c) asesoramiento legal. Las subvenciones recibidas no se destinan en ningún caso a actividades relacionadas con el token.
+
 ### 5.1 El token QRB
 
 El token nativo del ecosistema se denominará **QRB**. Sus funciones son:

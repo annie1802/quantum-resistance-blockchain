@@ -171,7 +171,7 @@ QRB is actively recruiting for Phase 0 and early Phase 1:
 - **1 frontend developer** for wallet and block explorer.
 - **1 technical writer / communicator** (Spanish/English).
 
-Significant contributors receive an allocation from the **Ecosystem & Grants** category (25% of total supply, terms negotiated with the QRB Foundation upon constitution).
+Phase 1 contributions are **paid work, funded by grants** (see the roadmap and the NLNet application track) — not unpaid token promises. QRB does not offer token allocations in exchange for contributions today. Any future token-based recognition would be decided only after a product exists and a MiCA-compliant token process is in place; it is explicitly out of scope for Phases 0 and 1.
 
 Interested? Open an issue, send a pull request, or DM [@QRB_PQ on X](https://x.com/QRB_PQ).
 
