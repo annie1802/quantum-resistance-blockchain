@@ -1,0 +1,261 @@
+# NLNet NGI Assure — application draft
+
+> **Status**: draft v0.1 — work in progress for submission to the next NGI Assure call (target deadline: 1 June or 1 August 2026, whichever the founder elects).
+>
+> **Target program**: NGI Assure — https://nlnet.nl/assure/
+>
+> **Project**: QRB — Quantum-Resistance Blockchain
+>
+> **Maintainer of the draft**: Fiyiware
+>
+> **Last update**: 30 May 2026
+
+This document mirrors the typical sections of the NLNet submission form. Final wording and order will be adjusted to match the exact fields when copying into the online form at https://nlnet.nl/propose/.
+
+---
+
+## 1. Project name
+
+**QRB — Quantum-Resistance Blockchain**
+
+## 2. Project website
+
+https://github.com/Fiyiware/quantum-resistance-blockchain
+
+## 3. Abstract / one-paragraph summary (≤ ~1200 characters)
+
+QRB is an open-source research and prototype track for a post-quantum Layer 2 blockchain compatible with Ethereum. It addresses two distinct quantum threats to existing crypto infrastructure: (1) signature forgery via Shor's algorithm on ECDSA, which puts the ≈6.9 million BTC and the entire Ethereum state with exposed public keys at risk of impersonation; and (2) "harvest now, decrypt later" — the structural failure of today's privacy chains (Aleo, Aztec) whose SNARK-based proofs are themselves quantum-vulnerable. QRB's roadmap covers both: post-quantum authentication via NIST FIPS 204 ML-DSA-65, already implemented in the Phase 0 prototype; and a post-quantum confidentiality layer based on STARKs (hash-based, natively post-quantum) and lattice commitments, in Phase 3+ research. Fully EVM-compatible, with Account Abstraction PQ-native to absorb the larger signature footprint at the UX layer. NLNet funding would underwrite Phase 1: smart account PQ verifier, EVM client fork with DSARECOVER precompile, and a minimal bridge devnet to Ethereum Sepolia.
+
+## 4. Have you been involved with the NGI initiative before?
+
+No (first application).
+
+## 5. Funding requested
+
+**€50,000** (initial first-stage Assure ticket).
+
+Milestone-based release with explicit deliverables tied to each tranche — see §11 below.
+
+## 6. Project description (extended)
+
+### 6.1 The problem
+
+Every elliptic-curve signature in production today (ECDSA on secp256k1, EdDSA on Ed25519) is breakable in polynomial time by a sufficiently large quantum computer running Shor's algorithm. The consensus estimate for the arrival of a Cryptographically Relevant Quantum Computer (CRQC) has contracted dramatically: from "2040 or later" in 2019 to "2028–2032" in early 2026.
+
+Key public signals from the past 12 months:
+
+- **NIST FIPS 203/204/205/206** finalised in August 2024, providing standardised post-quantum primitives (ML-KEM, ML-DSA, SLH-DSA, FN-DSA) ready for production deployment.
+- **Google Quantum AI** (March 2026 paper): breaking 256-bit ECC now estimated at <500,000 physical qubits, down from 20 million in 2019.
+- **Caltech + Atomic** (March 2026): plausible path with as few as ~10,000 qubits using atomic-architecture systems. Current commercial quantum computers already operate 1,000–2,000 qubits.
+- **Project Eleven Q-Day Prize** (April 2026): independent researcher Giancarlo Lelli broke a real 15-bit ECC key on a publicly accessible quantum computer, demonstrating a 512× capability jump in seven months.
+- **Google internal migration deadline** moved to 2029, six years ahead of the NIST 2035 baseline.
+- **Vitalik Buterin**: "Crypto has until 2028 to avoid quantum collapse."
+- **Jefferies**: 10% reduction in Bitcoin allocation in model portfolios (January 2026), citing quantum risk explicitly.
+
+Regulatory pressure tracks the same trajectory: NIS2 (EU, in force October 2024) lists post-quantum resistance among duty-of-care criteria for critical infrastructure; MiCA (in force December 2024) governs future token issuance in this space.
+
+The threats divide cleanly into two classes:
+
+| Threat | What breaks | Existing remediation |
+|--------|-------------|----------------------|
+| **A — Impersonation**: Shor on ECDSA signatures | Funds, identity, contract calls | Migrate signatures to PQ (work-in-progress on Ethereum, no production solution) |
+| **B — Retroactive decryption** ("harvest now, decrypt later") | All historical blockchain content and encrypted-channel transcripts | Almost nobody addresses this — privacy chains use SNARKs that are themselves quantum-vulnerable |
+
+### 6.2 QRB's approach
+
+QRB proposes a Layer 2 blockchain on Ethereum that addresses both threats coherently:
+
+- **Threat A — Post-quantum authentication**. All signatures use **ML-DSA-65** (NIST FIPS 204, derived from CRYSTALS-Dilithium). FALCON (FN-DSA, FIPS 206) available opt-in for compact signatures; SPHINCS+ (SLH-DSA, FIPS 205) reserved as conservative fallback. Hybrid ECDSA+ML-DSA mode supported during the migration window.
+
+- **Threat B — Post-quantum confidentiality**. A confidentiality layer (Phase 3+ research) using:
+  - Stealth addresses (one-time addresses per receipt, à la EIP-5564 adapted to PQ).
+  - Confidential transactions with lattice-based commitments.
+  - **ZK proofs on STARKs** — critically, *not* SNARKs. STARKs depend only on hash collision resistance and are therefore natively post-quantum; SNARKs depend on elliptic-curve assumptions and break under Shor.
+  - View keys for selective disclosure (MiCA / AML compliance).
+
+- **Ethereum compatibility**. EVM execution layer with `DSARECOVER` precompile alongside the legacy `ECRECOVER`; standard Solidity contracts compile without modification.
+
+- **Account Abstraction** (ERC-4337-like, PQ-native from day one): contractual wallets verify their own signatures, supporting key rotation, social recovery, paymasters and multisig PQ — and absorbing the larger PQ signature footprint at the application layer.
+
+- **Settlement on Ethereum L1** via an optimistic rollup bridge initially (Phase 1–2), with migration path to ZK-rollup on STARKs once provers for Dilithium become efficient.
+
+### 6.3 What is already implemented (Phase 0)
+
+The Phase 0 deliverables are public and verifiable on the project repository, with CI on GitHub Actions running the test suite across Python 3.10/3.11/3.12:
+
+- ML-DSA-65 signature primitives via `dilithium-py` (`prototype/qrb/crypto.py`).
+- Account-based blockchain with signed blocks and transactions (`prototype/qrb/block.py`, `transaction.py`, `chain.py`).
+- World state with balances and nonces (`prototype/qrb/state.py`).
+- Persistence in JSON for transparent inspection (`prototype/qrb/storage.py`).
+- CLI with create/list/balance/send/mine/show commands (`prototype/qrb_cli.py`).
+- End-to-end tests covering signature verification, tampering rejection, double-spend rejection, proposer impersonation rejection (`prototype/tests/test_basic.py`).
+- 24-page whitepaper with full technical and economic specification (`whitepaper/whitepaper-v0.2.pdf`).
+- Public licence: MIT.
+
+The Phase 0 prototype is a single-node, local-only blockchain. It is **not yet an L2** — that is the explicit deliverable of Phase 1, which this grant would fund.
+
+### 6.4 What this grant would fund (Phase 1)
+
+The €50,000 NLNet Assure grant would underwrite a focused **6-month Phase 1** with five concrete deliverables:
+
+1. **ML-DSA verifier as EVM precompile**. Fork of Reth (Rust EVM client) adding precompiles at fixed addresses (`0x100`–`0x103`) for ML-DSA-44, ML-DSA-65, ML-DSA-87 and FN-DSA-512 verification. Gas cost model published with benchmarks.
+
+2. **PQ Smart Account in Solidity**. Reference implementation of an ERC-4337-compatible smart account that validates ML-DSA signatures via the new precompile. Includes paymaster support, key rotation, and social recovery primitives.
+
+3. **Devnet**. Single-node devnet running the modified Reth fork with the precompiles active, exposed via standard JSON-RPC. Genesis-funded test wallets distributed via faucet.
+
+4. **Ethereum-Sepolia bridge prototype**. Minimal optimistic-rollup-style bridge enabling deposit/withdrawal of testnet ETH between Ethereum Sepolia and the QRB devnet. Withdrawal challenge window: 7 days, aligned with Optimism convention.
+
+5. **Open developer SDK**. JavaScript and Rust libraries for: generating PQ wallets, signing transactions, deploying smart accounts, interacting with the devnet via RPC. Three reference dApps demonstrating end-to-end flows.
+
+All artefacts published under MIT/Apache-2.0 dual licence.
+
+## 7. Comparison with the state of the art
+
+| Project | Post-quantum signatures | Post-quantum privacy | EVM compatibility | Account Abstraction | Open source |
+|---------|:-:|:-:|:-:|:-:|:-:|
+| Bitcoin / Ethereum L1 | ❌ (in research) | ❌ | ✅ Ethereum | partial (ERC-4337) | ✅ |
+| QRL / Zond | ✅ (XMSS → Dilithium) | ❌ | partial | ❌ | ✅ |
+| Quranium | ✅ (Dilithium) | ❌ | partial | ❌ | ✅ |
+| Cellframe | ✅ (CRYSTALS, NTRU) | partial | ❌ | ❌ | ✅ |
+| Aleo | ❌ (SNARK-based) | ✅ but NOT PQ-safe | ❌ | ❌ | ✅ |
+| Aztec | ❌ (SNARK-based) | ✅ but NOT PQ-safe | partial | ✅ | partial |
+| Monero | ❌ | ✅ but NOT PQ-safe | ❌ | ❌ | ✅ |
+| **QRB (target)** | ✅ ML-DSA-65 (Phase 0) | 🔬 STARKs (Phase 3+) | 📐 Phase 1 | 📐 Phase 1 | ✅ |
+
+No known project pursues all five capabilities simultaneously. The privacy chains in the market (Aleo, Aztec, Monero) provide privacy that is **broken at long horizons** under harvest-now-decrypt-later. QRB is the first project to identify this gap publicly and to design its confidentiality layer on STARKs from the ground up.
+
+## 8. Significant technical challenges expected
+
+- **Signature size in gas accounting**. ML-DSA-65 signatures are ≈3,309 bytes vs 64 for ECDSA. The precompile design must price PQ verification correctly without making PQ-only transactions prohibitively expensive. Calibrated benchmarks form part of deliverable 1.
+
+- **Hybrid signature transition**. During the migration window, transactions can be signed with both ECDSA and ML-DSA; both must verify for the transaction to be valid. Smart-account semantics for hybrid mode require careful design to avoid signature-confusion attacks.
+
+- **Bridge safety with PQ signatures by sequencer**. The optimistic rollup bridge must use PQ signatures for the sequencer and challenger roles to be coherent with the chain's threat model.
+
+- **Key rotation under PQ**. Stateless verification of frequent key rotations requires either stateful key trees (XMSS-style) or careful contract-account design. We default to ML-DSA (stateless) and address rotation at the AA-contract level.
+
+- **Tooling friction**. Most Ethereum tooling (Hardhat, Foundry, MetaMask) assumes ECDSA. The SDK deliverable explicitly addresses this by exposing identical developer ergonomics with PQ keys underneath.
+
+## 9. Why this project is important for an open internet
+
+The quantum threat to elliptic-curve cryptography is no longer hypothetical. Once a cryptographically relevant quantum computer exists, every public key ever exposed on a public chain — that is, every wallet that has ever sent a transaction — becomes a forgery target. The total at-risk balance on Ethereum and Bitcoin alone exceeds 1 trillion USD at current valuations.
+
+Existing L1s cannot realistically migrate in time. Coordinated migration of Bitcoin's state has been estimated at a minimum 76 days of continuous on-chain activity assuming community consensus from day one — a consensus that Bitcoin's governance has never achieved in less than 18 months. Ethereum's roadmap acknowledges the problem but does not commit to a concrete deadline before 2030. Meanwhile, regulated institutions in the EU (under NIS2 and the upcoming NIS3 supplementary guidance for crypto-assets) will be required to demonstrate post-quantum resistance for critical infrastructure well before 2030.
+
+The result is a clear infrastructure gap that no profit-driven L1 has a structural incentive to close. An open-source, grant-funded, L2 PQ-first project — designed for EVM compatibility so existing Ethereum apps and tooling can migrate without rewriting — is the cleanest path to closing that gap in the available time window. Phase 0 has demonstrated technical feasibility; Phase 1 (this grant) brings it to a public Ethereum-connected testnet.
+
+## 10. Non-technical considerations
+
+- **Regulatory positioning**. QRB explicitly aligns with MiCA. No token will be emitted during Phase 0 or Phase 1; any future token launch will be conducted via a MiCA-notified whitepaper with proper legal counsel. The privacy-layer design (Phase 3+) includes native view keys for selective disclosure, supporting compliance with NIS2 audit and AML/KYC obligations.
+
+- **Open-source governance**. MIT/Apache-2.0 dual licence; all artefacts public; no closed-source dependencies in critical paths. Future Foundation entity (planned for Phase 2) will hold trademarks and grant disbursement authority but not change core protocol unilaterally.
+
+- **AI assistance disclosure**. The current prototype has been built with substantial AI assistance (Anthropic Claude). This is declared openly in the project README. All architectural and strategic decisions are made by the human founder; AI is used for code generation, documentation drafting and editorial review. We believe transparent disclosure of AI tooling is a stronger signal than concealment.
+
+- **Founder honesty**. The project is currently single-founder. The grant period will be used to recruit a small permanent team (Rust dev, cryptographer) under explicit allocations. This risk is declared up front rather than hidden behind an inflated team page.
+
+## 11. Time and money — budget breakdown
+
+| Workstream | Hours | Rate (€/h) | Subtotal (€) |
+|------------|------:|-----------:|-------------:|
+| Reth fork + ML-DSA precompiles + benchmarks | 240 | 35 | 8,400 |
+| PQ Smart Account in Solidity + paymaster + key rotation | 200 | 35 | 7,000 |
+| Devnet, RPC, faucet, observability | 120 | 30 | 3,600 |
+| Bridge prototype Sepolia ↔ QRB devnet | 240 | 35 | 8,400 |
+| Developer SDK (JS + Rust) and 3 reference dApps | 200 | 30 | 6,000 |
+| External security review (focused PQ primitive) | — | — | 8,000 |
+| Documentation, dev examples, public update posts | 120 | 25 | 3,000 |
+| Founder coordination, governance, dissemination | 200 | 25 | 5,000 |
+| Cloud, domains, registry fees, misc | — | — | 600 |
+| **Total** | **1,320** | — | **€50,000** |
+
+Hourly rates reflect Spanish independent contractor norms for blockchain engineering work and are below market for Western-European salaried equivalents. Founder time is priced at a non-distorting rate consistent with grant-funded research.
+
+Milestone release proposal:
+
+- **30% on signed agreement** — Reth fork branch and Solidity smart account scaffold public.
+- **30% on devnet live** — modified Reth running publicly, faucet operational.
+- **30% on bridge tx end-to-end** — first deposit-and-withdrawal cycle Sepolia ↔ devnet documented in repository.
+- **10% on final report and SDK release** — JS+Rust libraries published to npm and crates.io.
+
+## 12. Team and track record
+
+**Founder — [Fiyiware]** (https://github.com/Fiyiware): coordinator of the QRB project, with primary responsibilities for product vision, technical specification, documentation, and external relations. Background in digital product. First blockchain project under personal authorship.
+
+The team is currently single-founder by design at Phase 0. The grant period will be used to onboard:
+
+- **Senior Rust / Go developer** with blockchain-client experience (Geth, Reth, Erigon) — primary contributor on the Reth fork and bridge components.
+- **Cryptographer or advanced PhD student** with lattice / Dilithium / STARK expertise — review of the precompile implementation and design of the Phase 3 confidentiality layer foundations.
+
+Three external reviewers have reviewed the Phase 0 artefacts; one of those reviews led directly to a security fix in the block proposer validation and the addition of full CI. The cycle of public peer review is documented in `marketing/reviewer-response.md` in the repository.
+
+## 13. Standards and protocols used
+
+- **NIST FIPS 203** (ML-KEM / Kyber) — key encapsulation.
+- **NIST FIPS 204** (ML-DSA / Dilithium) — signatures, primary.
+- **NIST FIPS 205** (SLH-DSA / SPHINCS+) — conservative fallback signature scheme.
+- **NIST FIPS 206** (FN-DSA / FALCON) — compact signatures, opt-in.
+- **ERC-4337** — Account Abstraction.
+- **EIP-1559** — fee market.
+- **EIP-4844** — blob transactions (for Phase 2 data availability).
+- **Ethereum yellow paper** — EVM compatibility.
+- **OP Stack** — initial rollup architecture reference.
+- **EIP-5564** — stealth addresses (adapted to PQ in Phase 3+).
+
+## 14. Risks and mitigations (additional)
+
+| Risk | Probability | Mitigation |
+|------|:-----------:|------------|
+| Cryptanalytic break of ML-DSA before mainnet | Low | Modular signature design enables hot-swap to SLH-DSA in <30 days; pre-existing plan documented |
+| Ethereum L1 migrates to PQ faster than expected | Medium | QRB pivots to specialisation (confidential PQ, QKD institutional bridge) — capability the L1 will not absorb |
+| Single founder bottleneck during Phase 1 | Medium-high | Grant is structured to fund team onboarding as primary first milestone; founder commits to fulltime for grant period |
+| Bridge security regression | Medium | External security review tranche reserved for precompile + bridge; bug bounty programme set up before public testnet exposure |
+| Regulatory turbulence (MiCA secondary acts) | Medium | Conservative governance; no token issuance during Phase 1; legal advice retained for Phase 2 token-issuance preparations |
+
+## 15. Public communication and dissemination
+
+The project commits to:
+
+- All deliverables under MIT/Apache-2.0 in the public GitHub repository.
+- Quarterly public progress reports on the project website and X (`@QRB_PQ`).
+- Reproducible CI on GitHub Actions, with test pass status visible from the repository's main page.
+- Two public technical write-ups during the grant period: one on the ML-DSA precompile gas accounting, one on the bridge design.
+- Open issues for community contributions; documented contribution guide.
+
+## 16. Why NLNet specifically?
+
+NGI Assure's explicit mission to fund applied research into post-quantum cryptographic infrastructure for the open internet aligns 1:1 with QRB's Phase 1 deliverables. Compared to industry funding sources, NLNet allows the project to:
+
+- Maintain MIT/Apache-2.0 licensing without dilution pressure from venture capital.
+- Prioritise long-term security and standards alignment over short-term token-launch incentives.
+- Build a public-good infrastructure layer rather than a proprietary product.
+
+The grant would be transformative for QRB's transition from credible Phase 0 prototype to public Ethereum-connected testnet, the milestone at which the project becomes evaluable by the wider ecosystem.
+
+---
+
+## Appendix A — Submission checklist (internal use)
+
+Before clicking "Submit" at https://nlnet.nl/propose/:
+
+- [ ] Verify the open call is active and accepting submissions for the target round.
+- [ ] Confirm bank account in name of natural person or registered entity (Fiyiware needs to decide whether to register a sole-proprietorship for the disbursement).
+- [ ] Confirm CIF / NIF / VAT details for invoicing.
+- [ ] Confirm address details for legal correspondence.
+- [ ] Cross-check the final wording against the actual form field names (some fields have character limits).
+- [ ] Attach: link to GitHub repo, link to whitepaper PDF, link to CI badge.
+- [ ] Designate a primary correspondence email (suggest: a dedicated `qrb-grants@…` alias rather than personal).
+- [ ] Save a copy of the final submitted version under `grants/nlnet-assure-submitted-YYYY-MM-DD.md`.
+- [ ] Diarise the expected decision window (NLNet typically responds within 8–12 weeks).
+
+## Appendix B — What to refine before submission
+
+The following items are placeholders or under-specified and need attention before pressing Submit:
+
+- **Founder identity**: decide whether to submit under real name, alias, or registered entity. NLNet requires identifiable counterparty.
+- **Bank account / fiscal vehicle**: confirm whether grant is received as natural person (income tax) or via sole-proprietorship (autónomo) / SL.
+- **Hourly rates**: validate against current Spanish freelance benchmarks for blockchain engineering (35€/h may be low; check against Adevinta, Cabify, fintech blockchain salaries).
+- **External security review supplier**: prepare a shortlist of two-three candidates (Least Authority, Trail of Bits' lighter-touch programmes, OpenZeppelin community audits) for the €8,000 line.
+- **Reference dApps choice**: decide which three reference dApps to deliver (suggested: PQ wallet, PQ ERC-20 token, PQ multi-sig).
+- **Public communication cadence**: lock in the quarterly cadence as a real commitment, not aspirational.
