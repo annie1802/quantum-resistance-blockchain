@@ -1,14 +1,18 @@
 # NLNet NGI Assure — application draft
 
-> **Status**: draft v0.1 — work in progress for submission to the next NGI Assure call (target deadline: 1 June or 1 August 2026, whichever the founder elects).
+> **Status**: draft v0.2 — work in progress for submission to the NGI Assure call (target deadline: 1 August 2026).
 >
 > **Target program**: NGI Assure — https://nlnet.nl/assure/
 >
 > **Project**: QRB — Quantum-Resistance Blockchain
 >
-> **Maintainer of the draft**: Fiyiware
+> **Applicant**: Luiggi Leonel Cedeño Bermeo (natural person / persona física)
 >
-> **Last update**: 30 May 2026
+> **Correspondence email**: qrb.grants@proton.me
+>
+> **Maintainer of the draft**: Fiyiware (Luiggi Leonel Cedeño Bermeo)
+>
+> **Last update**: 31 May 2026
 
 This document mirrors the typical sections of the NLNet submission form. Final wording and order will be adjusted to match the exact fields when copying into the online form at https://nlnet.nl/propose/.
 
@@ -181,7 +185,7 @@ Milestone release proposal:
 
 ## 12. Team and track record
 
-**Founder — [Fiyiware]** (https://github.com/Fiyiware): coordinator of the QRB project, with primary responsibilities for product vision, technical specification, documentation, and external relations. Background in digital product. First blockchain project under personal authorship.
+**Founder — Luiggi Leonel Cedeño Bermeo** (GitHub: https://github.com/Fiyiware): coordinator of the QRB project, with primary responsibilities for product vision, technical specification, documentation, and external relations. Background in digital product and web development. First blockchain project under personal authorship; the working Phase 0 prototype (ML-DSA-65 signatures, full test suite, public CI) is direct evidence of delivery capability.
 
 The team is currently single-founder by design at Phase 0. The grant period will be used to onboard:
 
@@ -240,22 +244,28 @@ The grant would be transformative for QRB's transition from credible Phase 0 pro
 Before clicking "Submit" at https://nlnet.nl/propose/:
 
 - [ ] Verify the open call is active and accepting submissions for the target round.
-- [ ] Confirm bank account in name of natural person or registered entity (Fiyiware needs to decide whether to register a sole-proprietorship for the disbursement).
-- [ ] Confirm CIF / NIF / VAT details for invoicing.
+- [x] Confirm bank account in name of natural person or registered entity. **Decided: natural person (persona física), Luiggi Leonel Cedeño Bermeo.** No Estonia OÜ / SL for now — revisit only once recurring revenue exists.
+- [x] Confirm NIF details for invoicing as persona física. **Decided: NIE Y0422417J** (serves as NIF for a foreign natural person in Spain).
 - [ ] Confirm address details for legal correspondence.
 - [ ] Cross-check the final wording against the actual form field names (some fields have character limits).
 - [ ] Attach: link to GitHub repo, link to whitepaper PDF, link to CI badge.
-- [ ] Designate a primary correspondence email (suggest: a dedicated `qrb-grants@…` alias rather than personal).
+- [x] Designate a primary correspondence email. **Decided: qrb.grants@proton.me** (dedicated, free).
 - [ ] Save a copy of the final submitted version under `grants/nlnet-assure-submitted-YYYY-MM-DD.md`.
 - [ ] Diarise the expected decision window (NLNet typically responds within 8–12 weeks).
 
-## Appendix B — What to refine before submission
+## Appendix B — Founder decisions (resolved 31 May 2026)
 
-The following items are placeholders or under-specified and need attention before pressing Submit:
+The six previously-open items have been decided by the founder:
 
-- **Founder identity**: decide whether to submit under real name, alias, or registered entity. NLNet requires identifiable counterparty.
-- **Bank account / fiscal vehicle**: confirm whether grant is received as natural person (income tax) or via sole-proprietorship (autónomo) / SL.
-- **Hourly rates**: validate against current Spanish freelance benchmarks for blockchain engineering (35€/h may be low; check against Adevinta, Cabify, fintech blockchain salaries).
-- **External security review supplier**: prepare a shortlist of two-three candidates (Least Authority, Trail of Bits' lighter-touch programmes, OpenZeppelin community audits) for the €8,000 line.
-- **Reference dApps choice**: decide which three reference dApps to deliver (suggested: PQ wallet, PQ ERC-20 token, PQ multi-sig).
-- **Public communication cadence**: lock in the quarterly cadence as a real commitment, not aspirational.
+- **Founder identity**: ✅ Real name — **Luiggi Leonel Cedeño Bermeo**.
+- **Fiscal vehicle**: ✅ **Persona física** (natural person). Estonia OÜ / SL deferred until recurring revenue justifies the ~€1,000/yr overhead.
+- **Hourly rates**: ✅ **35 €/h** as the reference rate (some lines at 30/25 €/h for non-engineering work, per the budget table). Defensible against Spanish freelance norms without appearing inflated.
+- **External security review supplier**: ✅ **Least Authority** as the named candidate for the €8,000 line (best fit for ticket size and PQ-primitive scope). Paid from the grant, not founder funds.
+- **Reference dApps**: ✅ **PQ wallet + PQ ERC-20 token + PQ multi-sig.**
+- **Correspondence email**: ✅ **qrb.grants@proton.me** (dedicated).
+
+Still to do before pressing Submit (not founder-blocking):
+
+- Verify the NGI Assure call is open for the target round before submitting.
+- Plan to accompany the application with a Reth-fork PoC (reason the deadline was moved to 1 August).
+- Lock in the quarterly public communication cadence as a real commitment, not aspirational.
