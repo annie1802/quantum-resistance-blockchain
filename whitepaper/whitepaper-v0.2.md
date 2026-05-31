@@ -4,7 +4,7 @@
 
 > *"Todo el internet de los últimos 40 años será un libro abierto, y no hay nada que puedas hacer para salvar el pasado."*
 >
-> — **Gilles Brassard**, co-creador de la criptografía cuántica (protocolo BB84, 1984), Premio Turing 2026
+> — **Gilles Brassard**, co-creador de la criptografía cuántica (protocolo BB84, 1984), ACM A.M. Turing Award 2025 (anunciado en marzo de 2026)
 
 ---
 
@@ -26,7 +26,7 @@ Esto no es ciencia ficción. Es matemática que existe desde 1994 (el algoritmo 
 
 El consenso experto se ha contraído brutalmente. Hace dos años se hablaba de 2040. Hoy se habla de **2028-2032**.
 
-Mientras tanto, los datos cifrados de hoy ya se están cosechando — comunicaciones, transacciones blockchain, historiales médicos, correos clasificados — para descifrarlos cuando exista el hardware. Esta práctica tiene nombre: *Harvest Now, Decrypt Later*. Brassard, ganador del Premio Turing 2026 por inventar la criptografía cuántica cuarenta años antes de que el mundo lo necesitara, lo resume sin adornos: *"todo el internet de los últimos 40 años será un libro abierto, y no hay nada que puedas hacer para salvar el pasado."*
+Mientras tanto, los datos cifrados de hoy ya se están cosechando — comunicaciones, transacciones blockchain, historiales médicos, correos clasificados — para descifrarlos cuando exista el hardware. Esta práctica tiene nombre: *Harvest Now, Decrypt Later*. Brassard, galardonado con el ACM A.M. Turing Award 2025 (anunciado en marzo de 2026) por inventar la criptografía cuántica cuarenta años antes de que el mundo lo necesitara, lo resume sin adornos: *"todo el internet de los últimos 40 años será un libro abierto, y no hay nada que puedas hacer para salvar el pasado."*
 
 **QRB existe para que el futuro no sea ese libro abierto.**
 
@@ -484,7 +484,7 @@ La ventana para construir esto se cierra cada mes que pasa. Los algoritmos está
 - **Marzo 2026** — Caltech + Atomic publican arquitectura con 10.000 qubits.
 - **Marzo 2026** — Google adelanta su plazo interno de migración a 2029.
 - **Abril 2026** — Giancarlo Lelli gana el Q-Day Prize rompiendo ECC-15 en cuántico público.
-- **Mayo 2026** — Bennett y Brassard reciben el Premio Turing.
+- **Marzo 2026** — ACM anuncia el A.M. Turing Award 2025 para Bennett y Brassard.
 - **Mayo 2026** — QRB inicia Fase 0.
 
 ### C. Referencias clave

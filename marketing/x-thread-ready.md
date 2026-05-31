@@ -110,7 +110,7 @@ Bonus que nadie más está haciendo:
 
 Integración planificada con QKD (Quantum Key Distribution).
 
-Bennett y Brassard ganaron el Turing 2026 por su BB84 de 1984. Su criptografía cuántica física se despliega ya en Alemania, China, Telefónica.
+Bennett y Brassard recibieron el ACM Turing Award 2025 (anunciado en marzo de 2026) por su BB84 de 1984. Su criptografía cuántica física se despliega ya en Alemania, China, Telefónica.
 
 QRB se propone como la primera blockchain en integrar ambas: la respuesta matemática (PQ) Y la física (QKD). Hoy es visión documentada en el whitepaper; piloto institucional planificado para Fase 3+.
 

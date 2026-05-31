@@ -63,11 +63,9 @@ Es una distinción de scope, no un desacuerdo sobre la observación técnica. La
 
 ---
 
-## Una conclusión personal
+## Cierre
 
-Los proyectos cripto que sobreviven más de 24 meses son los que reciben críticas como la tuya en sus primeros 60 días y las incorporan sin defenderse. Las críticas correctas que no se incorporan tarde se convierten en post-mortems. Las correctas que se incorporan temprano se convierten en commit messages.
-
-Gracias por la dureza intelectual. El repo es mejor hoy gracias a ella.
+Gracias por la revisión. Las correcciones están aplicadas y verificables en los commits del repo. Si encuentras tiempo para una segunda lectura técnica, sería bienvenida.
 
 — Fiyiware
 QRB Project

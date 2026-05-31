@@ -32,7 +32,7 @@ Un fondo gradient azul oscuro → negro con la frase de Brassard en blanco:
 
 > *"Todo el internet de los últimos 40 años será un libro abierto."*
 
-— Gilles Brassard, Premio Turing 2026
+— Gilles Brassard, ACM A.M. Turing Award 2025
 
 ### Sitios webs a vincular
 
@@ -121,7 +121,7 @@ Bonus que nadie más está haciendo:
 
 Integración planificada con **QKD** (Quantum Key Distribution).
 
-Bennett y Brassard ganaron el Turing 2026 por su BB84 de 1984. Su criptografía cuántica física se despliega ya en Alemania, China, Telefónica.
+Bennett y Brassard recibieron el ACM A.M. Turing Award 2025 (anunciado en marzo de 2026) por su BB84 de 1984. Su criptografía cuántica física se despliega ya en Alemania, China, Telefónica.
 
 QRB será la primera blockchain que combine la respuesta matemática (PQ) Y la respuesta física (QKD).
 

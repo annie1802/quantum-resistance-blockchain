@@ -2,7 +2,7 @@
 
 > _"All of the internet from the past 40 years will become an open book, and there is nothing you can do to save the past."_
 >
-> — **Gilles Brassard**, co-inventor of quantum cryptography (BB84, 1984), Turing Award 2026
+> — **Gilles Brassard**, co-inventor of quantum cryptography (BB84, 1984), 2025 ACM A.M. Turing Award (announced March 2026)
 
 **QRB is a research and prototype track for a post-quantum Layer 2 blockchain on Ethereum-compatible infrastructure.** Phase 0 today: a working Python prototype with real ML-DSA-65 (NIST FIPS 204) signatures, a 24-page whitepaper laying out the technical, economic and regulatory model, and the open-source artifacts to apply for non-dilutive grants. Phase 1+ ahead: EVM execution layer, account abstraction with PQ keys, rollup bridge to Ethereum, public testnet — and an evolving research line toward post-quantum confidentiality on STARKs (Phase 3+ vision).
 
@@ -208,7 +208,7 @@ The founder is responsible for understanding, validating, and maintaining everyt
 
 ## Acknowledgments
 
-- **Charles Bennett and Gilles Brassard** for inventing quantum cryptography in 1984 and receiving the 2026 Turing Award.
+- **Charles Bennett and Gilles Brassard** for inventing quantum cryptography in 1984 and receiving the 2025 ACM A.M. Turing Award (announced March 2026).
 - **The NIST PQC team** for standardizing ML-DSA, FN-DSA, SLH-DSA and ML-KEM (FIPS 203-206).
 - **Peter Shor** for proving in 1994 what the world is only now waking up to.
 - **Vitalik Buterin and the Ethereum Foundation** for the open L2 ecosystem this project builds on.
