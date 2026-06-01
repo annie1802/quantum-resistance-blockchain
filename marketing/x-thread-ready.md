@@ -107,12 +107,22 @@ Una L1 PQ-nueva tarda años y muere por falta de validadores. Una L2 PQ entrega 
 **Tuit 7/10**
 
 Bonus que nadie más está haciendo:
+integración planificada con QKD (Quantum Key Distribution).
 
-Integración planificada con QKD (Quantum Key Distribution).
+📡 La criptografía cuántica física ya es real.
 
-Bennett y Brassard recibieron el ACM Turing Award 2025 (anunciado en marzo de 2026) por su BB84 de 1984. Su criptografía cuántica física ya se despliega en redes reales: China, Alemania, y la red MadQCI de Telefónica en Madrid (validada en Nature, 2024).
+Bennett y Brassard ganaron el ACM Turing Award 2025 (anunciado en marzo de 2026) por su protocolo BB84 de 1984.
 
-QRB se propone como la primera blockchain en integrar ambas: la respuesta matemática (PQ) Y la física (QKD). Hoy es visión documentada en el whitepaper; piloto institucional planificado para Fase 3+.
+Y ya se despliega en redes reales:
+🔸 China
+🔸 Alemania
+🔸 MadQCI, la red de Telefónica en Madrid (validada en Nature, 2024)
+
+¿La apuesta de QRB? Ser la primera blockchain en unir las dos defensas:
+🔹 la matemática (PQ)
+🔹 la física (QKD)
+
+Hoy es visión documentada en el whitepaper. Piloto institucional planificado para Fase 3+.
 
 ---
 
