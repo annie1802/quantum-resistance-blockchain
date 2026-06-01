@@ -39,9 +39,9 @@ For the full technical and economic plan, read [`whitepaper/whitepaper-v0.2.pdf`
 
 ## Why now
 
-In **April 2026**, an independent researcher used a publicly accessible cloud quantum computer to break a 15-bit elliptic-curve cryptography key, winning Project Eleven's _Q-Day Prize_ ([CoinDesk coverage](https://www.coindesk.com/tech/2026/04/24/researcher-wins-1-bitcoin-bounty-for-largest-quantum-attack-on-underlying-tech)). Fifteen bits is far short of the 256 used by Bitcoin and Ethereum, but the demonstration represents a 512× capability jump in seven months — and shifts the conversation from theoretical to demonstrable.
+In **April 2026**, an independent researcher used a publicly accessible cloud quantum computer to break a 15-bit elliptic-curve cryptography key, winning Project Eleven's _Q-Day Prize_ ([CoinDesk coverage](https://www.coindesk.com/tech/2026/04/24/researcher-wins-1-bitcoin-bounty-for-largest-quantum-attack-on-underlying-tech)). Fifteen bits is far short of the 256 used by Bitcoin and Ethereum, and the resource cost of attacking larger keys does **not** scale linearly — but the demonstration shifts the conversation from theoretical to demonstrable.
 
-Google now estimates that breaking ECDSA-256 requires **fewer than 500,000 physical qubits** (April 2026 technical report), down from 20 million in 2019. Caltech researchers and the startup Atomic published a separate study suggesting it could potentially be done with just 10,000 qubits using atomic-architecture hardware. Current commercial quantum computers already have 1,000–2,000 qubits.
+Google now estimates that breaking ECDSA-256 requires **fewer than 500,000 physical qubits** (April 2026 technical report), down from 20 million in 2019. Caltech researchers and the startup Atomic published a separate study suggesting it could be done with on the order of **10,000 _logical_ qubits** using atomic-architecture hardware. A crucial caveat: today's commercial machines have 1,000–2,000 **noisy _physical_ qubits**, and a single fault-tolerant logical qubit requires on the order of hundreds to thousands of physical qubits for error correction. So the real gap between what exists today and what is needed remains **far larger** than a raw comparison of these numbers suggests. The direction of travel is clear; the arrival date of a cryptographically-relevant quantum computer is genuinely uncertain.
 
 Vitalik Buterin (Ethereum founder): _"Crypto has until 2028 to avoid quantum collapse."_
 
@@ -171,7 +171,7 @@ QRB is actively recruiting for Phase 0 and early Phase 1:
 - **1 frontend developer** for wallet and block explorer.
 - **1 technical writer / communicator** (Spanish/English).
 
-Significant contributors receive an allocation from the **Ecosystem & Grants** category (25% of total supply, terms negotiated with the QRB Foundation upon constitution).
+Phase 1 contributions are **paid work, funded by grants** (see the roadmap and the NLNet application track) — not unpaid token promises. QRB does not offer token allocations in exchange for contributions today. Any future token-based recognition would be decided only after a product exists and a MiCA-compliant token process is in place; it is explicitly out of scope for Phases 0 and 1.
 
 Interested? Open an issue, send a pull request, or DM [@QRB_PQ on X](https://x.com/QRB_PQ).
 
