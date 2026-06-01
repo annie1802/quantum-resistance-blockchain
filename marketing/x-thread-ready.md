@@ -34,7 +34,7 @@ Justo antes de publicar el primer tuit del hilo:
 
 **Tuit 1/10**
 
-En abril de 2026, un investigador rompió la primera clave criptográfica con un ordenador cuántico de acceso público.
+En abril de 2026, un investigador usó un ordenador cuántico público para derivar una clave privada a partir de la pública — y ganó 1 BTC por hacerlo (Q-Day Prize). Aún son claves pequeñas. El reloj corre.
 
 Google adelanta su migración post-cuántica a 2029.
 
