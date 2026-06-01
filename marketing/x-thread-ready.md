@@ -88,7 +88,7 @@ QRB está diseñada para cubrir las dos:
 🔐 Firmas ML-DSA-65 (NIST 2024) → **implementadas HOY** en el prototipo.
 👁️ STARKs + lattice commitments → diseño de privacidad PQ para Fase 3+.
 
-¿Por qué STARKs? Los SNARKs de Aleo y Aztec NO son post-cuánticos. Su privacidad es falsa a largo plazo. Cosechan hoy, descifran mañana.
+¿Por qué STARKs? Los SNARKs de Aleo y Aztec usan emparejamientos de curvas que NO resisten a un ordenador cuántico. Su privacidad protege hoy, pero no a 30 años vista. Cosechan hoy, descifran mañana.
 
 ---
 
