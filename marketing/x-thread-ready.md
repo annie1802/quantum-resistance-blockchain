@@ -4,7 +4,7 @@ URLs ya sustituidas. Dos modalidades de publicación.
 
 ---
 
-## 🟢 Soft launch — tuit suelto (29 mayo 2026, 19:00-22:00 Madrid)
+## 🟢 Soft launch — tuit suelto ✅ PUBLICADO (~30 mayo 2026) y FIJADO en perfil
 
 ```
 QRB ya es público — Quantum-Resistance Blockchain.
@@ -18,7 +18,7 @@ Hilo largo el martes.
 https://github.com/Fiyiware/quantum-resistance-blockchain
 ```
 
-Después de publicar: **fijar (Pin) a perfil**. Mantener fijado hasta el martes.
+Estado: ✅ publicado y fijado (Pin) en perfil. Mantener fijado hasta justo antes del hilo del martes 2 jun.
 
 ---
 
