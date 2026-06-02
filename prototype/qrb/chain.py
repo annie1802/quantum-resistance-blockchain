@@ -11,6 +11,7 @@ import time
 from pathlib import Path
 
 from qrb.block import Block
+from qrb.crypto import is_valid_address
 from qrb.state import WorldState
 from qrb.storage import load_json, save_json
 from qrb.transaction import Transaction
@@ -78,6 +79,11 @@ class Chain:
         """Añade una transacción al mempool tras validarla."""
         if not tx.is_valid():
             raise ValueError("Transacción inválida (firma no verifica)")
+        if not is_valid_address(tx.recipient):
+            raise ValueError(
+                f"Dirección de destinatario inválida: {tx.recipient!r} "
+                "(se espera '0x' + 40 caracteres hex)"
+            )
         if tx.amount <= 0:
             raise ValueError("El monto debe ser positivo")
         # El nonce esperado tiene en cuenta otras transacciones de este

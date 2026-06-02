@@ -87,3 +87,31 @@ def address_from_pubkey(public_key: bytes) -> str:
     """
     h = hashlib.sha3_256(public_key).digest()
     return "0x" + h[-20:].hex()
+
+
+def is_valid_address(address: str) -> bool:
+    """Comprueba que una cadena tiene el formato de dirección QRB.
+
+    Una dirección válida es '0x' seguido de 40 caracteres hexadecimales
+    (los últimos 20 bytes de un SHA3-256), igual que la convención de
+    Ethereum. No comprueba que exista una cuenta con esa dirección, solo
+    que el formato es correcto — suficiente para evitar enviar fondos a
+    una dirección malformada e irrecuperable.
+
+    Args:
+        address: cadena a comprobar.
+
+    Returns:
+        True si el formato es válido, False en caso contrario.
+    """
+    if not isinstance(address, str) or not address.startswith("0x"):
+        return False
+    hex_part = address[2:]
+    if len(hex_part) != 40:
+        return False
+    try:
+        bytes.fromhex(hex_part)
+    except ValueError:
+        return False
+    return True
+
