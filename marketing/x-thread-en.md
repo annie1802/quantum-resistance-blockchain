@@ -135,8 +135,8 @@ Crypto needs more projects built this way.
 
 **Tweet 10/10**
 
-📄 Whitepaper v0.2 (PDF):
-https://github.com/Fiyiware/quantum-resistance-blockchain/blob/main/whitepaper/whitepaper-v0.2.pdf
+📄 Whitepaper v0.2 (English):
+https://github.com/Fiyiware/quantum-resistance-blockchain/blob/main/whitepaper/whitepaper-v0.2.en.md
 
 💻 Open-source repo:
 https://github.com/Fiyiware/quantum-resistance-blockchain

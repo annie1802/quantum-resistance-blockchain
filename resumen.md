@@ -1,5 +1,7 @@
 # QRB — Pitch corto
 
+> 🌐 **Idioma / Language:** **Español** · [English](summary.en.md)
+
 **Una blockchain post-cuántica sobre Ethereum.**
 
 ## En una frase
