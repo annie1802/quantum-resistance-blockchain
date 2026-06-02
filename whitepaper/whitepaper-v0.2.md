@@ -46,7 +46,7 @@ A estas dos dimensiones criptográficas se les suma:
 
 - **Compatibilidad total con la EVM** y herramientas de desarrollo Ethereum (Solidity, Hardhat, Foundry, MetaMask con adaptador PQ): cualquier app de Ethereum migra sin reescribir.
 - **Account Abstraction nativa**: oculta al usuario final la complejidad y el tamaño de las firmas post-cuánticas. UX equivalente a una cartera Ethereum normal.
-- **Integración con redes QKD** (Quantum Key Distribution) para clientes institucionales que ya operan sobre infraestructura cuántica física (visión Fase 3+): QRB sería la primera blockchain que combina ambas familias de criptografía cuántica, la matemática (PQ) y la física (QKD/BB84).
+- **Integración opcional con redes QKD** (Quantum Key Distribution) para clientes institucionales que ya operan sobre infraestructura cuántica física (línea de investigación, visión Fase 3+; no es un objetivo de Fase 0 ni Fase 1). Es una posibilidad exploratoria, no un compromiso de entrega temprana.
 - **Estrategia de financiación responsable**: subvenciones públicas no dilutivas en Fase 1 (NLNet, Ethereum Foundation, Optimism), inversión seed en Fase 2, y solo entonces emisión de token registrada bajo whitepaper MiCA con asesoramiento legal.
 
 El presente documento describe el problema, la solución técnica, el modelo económico, la gobernanza, el *roadmap* y los riesgos del proyecto. Está dirigido a desarrolladores, criptógrafos, evaluadores de subvenciones y, en una fase posterior, a inversores institucionales.
@@ -70,16 +70,17 @@ La industria post-cuántica actual cubre fundamentalmente la **Amenaza A** (firm
 
 ### 1.2 La línea temporal se ha contraído
 
-| Año | Estimación de qubits para romper ECDSA-256 | Fuente |
+| Año | Estimación de qubits **lógicos / con corrección de errores** para romper ECDSA-256 | Fuente |
 |-----|---------------------------------------------|--------|
-| 2012 | ~1.000 millones | Estimaciones académicas |
-| 2019 | ~20 millones | Google Research |
-| Mayo 2025 | ~1 millón | Google Research (revisión) |
-| Marzo 2026 | **< 500.000** | Google Quantum AI |
-| Marzo 2026 | **~10.000** (arquitectura atómica) | Caltech + Atomic |
-| **Mayo 2026 (hoy)** | Ordenadores comerciales actuales tienen **1.000-2.000 qubits** | IBM, Google, Quantinuum, IonQ |
+| 2012 | ~1.000 millones (físicos) | Estimaciones académicas |
+| 2019 | ~20 millones (físicos) | Google Research |
+| Mayo 2025 | ~1 millón (físicos) | Google Research (revisión) |
+| Marzo 2026 | **< 500.000** (físicos) | Google Quantum AI |
+| Marzo 2026 | **~10.000** (lógicos, arquitectura atómica) | Caltech + Atomic |
 
-Cinco órdenes de magnitud de reducción en 14 años. La brecha entre lo que existe y lo que se necesita se está cerrando exponencialmente.
+> **Aviso metodológico — no confundir qubits físicos con lógicos.** Las cifras de la tabla son mayoritariamente *qubits lógicos con corrección de errores* (o estimaciones de físicos bajo arquitecturas concretas). Un qubit lógico tolerante a fallos requiere hoy **del orden de cientos a miles de qubits físicos** para su corrección de errores. En contraste, los ordenadores comerciales actuales (IBM, Google, Quantinuum, IonQ) tienen **1.000-2.000 qubits *físicos* ruidosos**, sin la corrección de errores necesaria para ejecutar el algoritmo de Shor a esta escala. Por tanto, la brecha real entre lo disponible hoy y lo necesario es **mucho mayor** de lo que sugiere comparar los números en bruto, y el coste de romper claves más grandes no escala de forma lineal.
+
+La tendencia de las estimaciones, no obstante, es inequívocamente descendente: varios órdenes de magnitud de reducción en los recursos estimados a lo largo de una década. **La fecha exacta de llegada de un ordenador cuántico criptográficamente relevante (CRQC) es genuinamente incierta**; lo que no es incierto es la dirección, ni el hecho de que la infraestructura criptográfica tarda años en migrarse. Esa asimetría — migración lenta frente a amenaza creciente — es la que justifica actuar ahora.
 
 Plazos publicados por actores serios:
 
@@ -122,7 +123,9 @@ En cambio, **una cadena PQ-nativa desde el día uno no tiene que migrar nada**: 
 | Aleo | ❌ (SNARK) | ✅ (no PQ) | ❌ | ❌ | ❌ | Privacidad no resistente a cuántico |
 | Aztec | ❌ (SNARK) | ✅ (no PQ) | parcial | ✅ | ❌ | Privacidad no resistente a cuántico |
 | Monero | ❌ | ✅ (no PQ) | ❌ | ❌ | ❌ | Privacidad no resistente a cuántico, sin smart contracts |
-| **QRB (propuesta)** | **✅ ML-DSA-65** | **✅ STARKs + lattice** | **✅** | **✅** | **✅** | Proyecto joven (Fase 0) |
+| **QRB (objetivo del roadmap)** | **✅ ML-DSA-65 (Fase 0)** | 🔬 STARKs (Fase 3+) | 📐 Fase 1 | 📐 Fase 1 | 🔬 Fase 3+ | Proyecto joven; núcleo L2 aún por construir |
+
+> **Lectura honesta de esta tabla.** Las columnas describen la **combinación de capacidades que QRB persigue a lo largo de todo su roadmap**, no su estado actual. Solo la autenticación PQ (ML-DSA-65) está implementada hoy en el prototipo de Fase 0; EVM y Account Abstraction están diseñadas para Fase 1, y la privacidad PQ y la integración QKD son línea de investigación / visión Fase 3+. El valor de la tabla no es reclamar paridad de funciones hoy, sino señalar que **ningún proyecto conocido persigue las cinco dimensiones juntas**. El estado preciso de cada componente está en la sección de roadmap (§8) y en la tabla de estado del README del repositorio.
 
 Ningún proyecto del mercado combina las cinco columnas. QRB se posiciona en ese hueco.
 
@@ -228,14 +231,15 @@ QRB integra opcionalmente canales QKD para el **submission de transacciones** de
 
 - **Caso de uso**: un banco europeo con red QKD interna (varios ya las tienen desplegadas tras NIS2) puede enviar sus transacciones a QRB sobre canal QKD-seguro, garantizando confidencialidad perfecta del propio acto de enviar la transacción, no solo del contenido.
 - **Cómo funciona**: la wallet institucional firma con ML-DSA-65 igual que cualquier usuario, pero el canal de envío al nodo más cercano va cifrado con clave establecida por BB84. El nodo receptor reenvía a su mempool normal.
-- **Diferenciador único de QRB**: ningún otro proyecto blockchain ha publicado una integración formal con la pila QKD existente. La avalancha de despliegues de QKD que está ocurriendo en Europa (NIS2 ha acelerado esto) abre un mercado B2B significativo.
-- **Estado**: visión Fase 3+. Requiere alianza con uno o varios operadores QKD europeos. Posible camino: pilotos con clientes financieros vía Cellnex, Telefónica Tech o Deutsche Telekom T-Systems.
-
-Este punto convierte a QRB no en *otro* proyecto post-cuántico sino en **la primera blockchain que reconoce que la era cuántica tiene dos respuestas, no una**.
+- **Posible interés diferencial**: no nos consta otra blockchain que haya publicado una integración formal con la pila QKD existente. Si los despliegues de QKD en Europa (acelerados por NIS2) maduran, podría abrirse un mercado B2B institucional. Lo presentamos como hipótesis a explorar, no como ventaja ya conquistada.
+- **Limitaciones honestas**: QKD protege únicamente el *canal de envío*, no el contenido on-chain (que es público salvo que se use la capa de confidencialidad §7.5); QKD por sí sola no autentica (de ahí que se combine con firmas ML-DSA); y requiere fibra dedicada o enlaces satelitales, lo que la restringe a clientes institucionales. No es una bala de plata.
+- **Estado**: línea de investigación / visión Fase 3+. Requeriría una alianza con uno o varios operadores QKD europeos (posibles caminos: pilotos vía Cellnex, Telefónica Tech o Deutsche Telekom T-Systems). No es un objetivo de Fase 0 ni Fase 1.
 
 ---
 
 ## 5. Tokenomics
+
+> **Marco previo — el token es Fase 2+, contingente y fuera del alcance de cualquier subvención.** Lo que sigue describe el modelo económico *previsto a largo plazo*, no algo activo hoy. El token QRB no se emite ni interviene en las Fases 0 y 1, que son de código abierto (MIT) y se financian con fondos propios y subvenciones públicas no dilutivas. Ningún entregable de Fase 1 depende del token. Su eventual emisión queda condicionada a (a) la existencia de un producto en funcionamiento, (b) un proceso de registro conforme a MiCA y (c) asesoramiento legal. Las subvenciones recibidas no se destinan en ningún caso a actividades relacionadas con el token.
 
 ### 5.1 El token QRB
 
