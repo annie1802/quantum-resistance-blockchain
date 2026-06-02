@@ -370,7 +370,7 @@ Las pruebas STARK son intensivas en cómputo. El usuario pagará un múltiplo de
 
 ## 9. Equipo y colaboradores
 
-**Fundador**: [Nombre — completar]. Visión de producto, dirección estratégica, representación pública.
+**Fundador**: Luiggi Leonel Cedeño Bermeo. Visión de producto, dirección estratégica, representación pública.
 
 **Colaboradores buscados activamente (Fase 0)**:
 
