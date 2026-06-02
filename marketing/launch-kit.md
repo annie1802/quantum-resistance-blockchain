@@ -41,7 +41,13 @@ Un fondo gradient azul oscuro → negro con la frase de Brassard en blanco:
 
 ---
 
-## 2. El hilo de lanzamiento (copia-pega tal cual)
+## 2. El hilo de lanzamiento
+
+> ⚠️ **La versión definitiva y corregida del hilo está en [`x-thread-ready.md`](x-thread-ready.md).**
+> Copia SIEMPRE de ahí. El texto de abajo se mantiene solo como referencia histórica
+> y NO incluye las correcciones de los tuits 1, 5 y 7.
+
+
 
 **1/10**
 

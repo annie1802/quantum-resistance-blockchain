@@ -15,7 +15,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from qrb.block import Block  # noqa: E402
 from qrb.chain import Chain  # noqa: E402
-from qrb.crypto import address_from_pubkey, generate_keypair, sign, verify  # noqa: E402
+from qrb.crypto import (  # noqa: E402
+    address_from_pubkey,
+    generate_keypair,
+    is_valid_address,
+    sign,
+    verify,
+)
 from qrb.transaction import Transaction  # noqa: E402
 from qrb.wallet import Wallet  # noqa: E402
 
@@ -160,6 +166,47 @@ def test_block_proposer_pubkey_must_match_address() -> None:
     )
 
 
+def test_invalid_recipient_address_rejected() -> None:
+    """Una transacción a una dirección de destinatario malformada debe
+    rechazarse en el mempool, para evitar quemar fondos enviándolos a una
+    dirección irrecuperable.
+
+    Regresión correspondiente al bug detectado en pruebas manuales del CLI
+    (2 de junio de 2026): se aceptaban destinatarios sin formato válido.
+    """
+    # is_valid_address: casos básicos
+    assert is_valid_address("0x" + "ab" * 20), "direccion valida rechazada"
+    assert not is_valid_address("no-soy-una-direccion"), "texto libre aceptado"
+    assert not is_valid_address("0x123"), "direccion demasiado corta aceptada"
+    assert not is_valid_address("0x" + "zz" * 20), "caracteres no-hex aceptados"
+    assert not is_valid_address("ab" * 20), "direccion sin prefijo 0x aceptada"
+
+    with tempfile.TemporaryDirectory() as tmp:
+        data_dir = Path(tmp)
+        wallets_dir = data_dir / "wallets"
+        founder = Wallet.create("founder")
+        founder.save(wallets_dir)
+
+        chain = Chain(data_dir)
+        chain.init_genesis(founder.address, 1_000)
+
+        # add_to_mempool debe rechazar el destinatario inválido aunque la
+        # firma sea criptográficamente válida.
+        tx = Transaction(
+            sender=founder.address,
+            recipient="no-soy-una-direccion",
+            amount=10,
+            nonce=0,
+        )
+        tx.sign_with(founder.public_key, founder.private_key)
+        try:
+            chain.add_to_mempool(tx)
+            raise AssertionError("destinatario invalido no detectado")
+        except ValueError:
+            pass  # esperado
+        assert len(chain.mempool) == 0, "tx con destinatario invalido entro al mempool"
+
+
 def run_all() -> None:
     tests = [
         test_dilithium_sign_verify,
@@ -168,6 +215,7 @@ def run_all() -> None:
         test_end_to_end_chain_flow,
         test_double_spend_rejected,
         test_block_proposer_pubkey_must_match_address,
+        test_invalid_recipient_address_rejected,
     ]
     for t in tests:
         print(f"  -> {t.__name__} ... ", end="", flush=True)

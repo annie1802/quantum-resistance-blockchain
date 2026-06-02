@@ -33,7 +33,7 @@ This README is deliberately careful to distinguish **implemented**, **designed**
 
 **The Phase 0 prototype is a single-node, local-only blockchain that demonstrates the post-quantum signature path end to end.** It does not yet implement L2 mechanics (rollup, bridge, data availability), EVM, networking, or decentralised consensus. Those are explicit Phase 1 and Phase 2 deliverables.
 
-For the full technical and economic plan, read [`whitepaper/whitepaper-v0.2.pdf`](whitepaper/whitepaper-v0.2.pdf) (24 pages, Spanish).
+For the full technical and economic plan, read the whitepaper in [English](whitepaper/whitepaper-v0.2.en.md) or [Spanish (PDF, 24 pp)](whitepaper/whitepaper-v0.2.pdf).
 
 ---
 
@@ -79,7 +79,8 @@ The privacy chains in the market today (Aleo, Aztec, Monero) build their privacy
 quantum-resistance-blockchain/
 ├── whitepaper/
 │   ├── whitepaper-v0.2.md         Source markdown (full whitepaper, Spanish)
-│   ├── whitepaper-v0.2.pdf        24-page PDF rendering for distribution
+│   ├── whitepaper-v0.2.en.md      Full whitepaper, English
+│   ├── whitepaper-v0.2.pdf        24-page PDF rendering for distribution (Spanish)
 │   └── _build_pdf.js              Reproducible PDF build script (Node + Chrome)
 ├── prototype/
 │   ├── qrb/                       Python package with the prototype
@@ -146,7 +147,7 @@ See [`prototype/README.md`](prototype/README.md) for full prototype documentatio
 | **2 — Mainnet beta** | Q4 2027 - Q2 2028 | Audits · Production bridge · MiCA-registered token · DEX listings · 50+ contracts | €500K-2M (seed + token) |
 | **3 — GA + Privacy layer** | H2 2028 - 2030 | Sequencer decentralization · STARK confidentiality · Stealth addresses · QKD institutional pilots · Optimistic → ZK rollup migration | Self-sustaining via fees |
 
-Read the full economic and technical model in [`whitepaper/whitepaper-v0.2.pdf`](whitepaper/whitepaper-v0.2.pdf).
+Read the full economic and technical model in the whitepaper ([English](whitepaper/whitepaper-v0.2.en.md) · [Spanish PDF](whitepaper/whitepaper-v0.2.pdf)).
 
 ---
 

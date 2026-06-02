@@ -2,6 +2,8 @@
 ## Whitepaper técnico-económico
 **Versión 0.2 · Borrador · Mayo 2026**
 
+> 🌐 **Idioma / Language:** **Español** · [English](whitepaper-v0.2.en.md)
+
 > *"Todo el internet de los últimos 40 años será un libro abierto, y no hay nada que puedas hacer para salvar el pasado."*
 >
 > — **Gilles Brassard**, co-creador de la criptografía cuántica (protocolo BB84, 1984), ACM A.M. Turing Award 2025 (anunciado en marzo de 2026)
@@ -372,7 +374,7 @@ Las pruebas STARK son intensivas en cómputo. El usuario pagará un múltiplo de
 
 ## 9. Equipo y colaboradores
 
-**Fundador**: [Nombre — completar]. Visión de producto, dirección estratégica, representación pública.
+**Fundador**: Luiggi Leonel Cedeño Bermeo. Visión de producto, dirección estratégica, representación pública.
 
 **Colaboradores buscados activamente (Fase 0)**:
 

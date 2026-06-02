@@ -4,7 +4,7 @@ URLs ya sustituidas. Dos modalidades de publicación.
 
 ---
 
-## 🟢 Soft launch — tuit suelto (29 mayo 2026, 19:00-22:00 Madrid)
+## 🟢 Soft launch — tuit suelto ✅ PUBLICADO (~30 mayo 2026) y FIJADO en perfil
 
 ```
 QRB ya es público — Quantum-Resistance Blockchain.
@@ -18,7 +18,7 @@ Hilo largo el martes.
 https://github.com/Fiyiware/quantum-resistance-blockchain
 ```
 
-Después de publicar: **fijar (Pin) a perfil**. Mantener fijado hasta el martes.
+Estado: ✅ publicado y fijado (Pin) en perfil. Mantener fijado hasta justo antes del hilo del martes 2 jun.
 
 ---
 
@@ -34,7 +34,7 @@ Justo antes de publicar el primer tuit del hilo:
 
 **Tuit 1/10**
 
-En abril de 2026, un investigador rompió la primera clave criptográfica con un ordenador cuántico de acceso público.
+En abril de 2026, un investigador usó un ordenador cuántico público para derivar una clave privada a partir de la pública — y ganó 1 BTC por hacerlo (Q-Day Prize). Aún son claves pequeñas. El reloj corre.
 
 Google adelanta su migración post-cuántica a 2029.
 
@@ -88,7 +88,7 @@ QRB está diseñada para cubrir las dos:
 🔐 Firmas ML-DSA-65 (NIST 2024) → **implementadas HOY** en el prototipo.
 👁️ STARKs + lattice commitments → diseño de privacidad PQ para Fase 3+.
 
-¿Por qué STARKs? Los SNARKs de Aleo y Aztec NO son post-cuánticos. Su privacidad es falsa a largo plazo. Cosechan hoy, descifran mañana.
+¿Por qué STARKs? Los SNARKs de Aleo y Aztec usan emparejamientos de curvas que NO resisten a un ordenador cuántico. Su privacidad protege hoy, pero no a 30 años vista. Cosechan hoy, descifran mañana.
 
 ---
 
@@ -107,12 +107,22 @@ Una L1 PQ-nueva tarda años y muere por falta de validadores. Una L2 PQ entrega 
 **Tuit 7/10**
 
 Bonus que nadie más está haciendo:
+integración planificada con QKD (Quantum Key Distribution).
 
-Integración planificada con QKD (Quantum Key Distribution).
+📡 La criptografía cuántica física ya es real.
 
-Bennett y Brassard recibieron el ACM Turing Award 2025 (anunciado en marzo de 2026) por su BB84 de 1984. Su criptografía cuántica física se despliega ya en Alemania, China, Telefónica.
+Bennett y Brassard ganaron el ACM Turing Award 2025 (anunciado en marzo de 2026) por su protocolo BB84 de 1984.
 
-QRB se propone como la primera blockchain en integrar ambas: la respuesta matemática (PQ) Y la física (QKD). Hoy es visión documentada en el whitepaper; piloto institucional planificado para Fase 3+.
+Y ya se despliega en redes reales:
+🔸 China
+🔸 Alemania
+🔸 MadQCI, la red de Telefónica en Madrid (validada en Nature, 2024)
+
+¿La apuesta de QRB? Ser la primera blockchain en unir las dos defensas:
+🔹 la matemática (PQ)
+🔹 la física (QKD)
+
+Hoy es visión documentada en el whitepaper. Piloto institucional planificado para Fase 3+.
 
 ---
 
