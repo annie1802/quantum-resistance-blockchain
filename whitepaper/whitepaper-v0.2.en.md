@@ -46,7 +46,7 @@ On top of those two cryptographic dimensions:
 
 - **Full EVM compatibility** and Ethereum developer tooling (Solidity, Hardhat, Foundry, MetaMask with a PQ adapter): any Ethereum app migrates without rewriting.
 - **Native Account Abstraction**: hides the complexity and size of post-quantum signatures from the end user. UX equivalent to a normal Ethereum wallet.
-- **Integration with QKD networks** (Quantum Key Distribution) for institutional clients already operating on physical quantum infrastructure (Phase 3+ vision): QRB would be the first blockchain to combine both families of quantum cryptography, the mathematical one (PQ) and the physical one (QKD/BB84).
+- **Optional integration with QKD networks** (Quantum Key Distribution) for institutional clients already operating on physical quantum infrastructure (a research line, Phase 3+ vision; not a Phase 0 or Phase 1 goal). It is an exploratory possibility, not an early-delivery commitment. QRB would be the first blockchain to combine both families of quantum cryptography, the mathematical one (PQ) and the physical one (QKD/BB84).
 - **A responsible funding strategy**: non-dilutive public grants in Phase 1 (NLNet, Ethereum Foundation, Optimism), a seed round in Phase 2, and only then a token issuance registered under a MiCA whitepaper with legal counsel.
 
 This document describes the problem, the technical solution, the economic model, governance, the roadmap and the project's risks. It is aimed at developers, cryptographers, grant reviewers and, at a later stage, institutional investors.
@@ -70,16 +70,17 @@ Today's post-quantum industry fundamentally covers **Threat A** (resistant signa
 
 ### 1.2 The timeline has contracted
 
-| Year | Estimated qubits to break ECDSA-256 | Source |
+| Year | Estimated **logical / error-corrected** qubits to break ECDSA-256 | Source |
 |-----|---------------------------------------------|--------|
-| 2012 | ~1 billion | Academic estimates |
-| 2019 | ~20 million | Google Research |
-| May 2025 | ~1 million | Google Research (revised) |
-| March 2026 | **< 500,000** | Google Quantum AI |
-| March 2026 | **~10,000** (atomic architecture) | Caltech + Atomic |
-| **May 2026 (today)** | Current commercial computers have **1,000–2,000 qubits** | IBM, Google, Quantinuum, IonQ |
+| 2012 | ~1 billion (physical) | Academic estimates |
+| 2019 | ~20 million (physical) | Google Research |
+| May 2025 | ~1 million (physical) | Google Research (revised) |
+| March 2026 | **< 500,000** (physical) | Google Quantum AI |
+| March 2026 | **~10,000** (logical, atomic architecture) | Caltech + Atomic |
 
-Five orders of magnitude of reduction in 14 years. The gap between what exists and what is needed is closing exponentially.
+> **Methodological caveat — do not confuse physical qubits with logical ones.** The figures in the table are mostly *error-corrected logical qubits* (or physical-qubit estimates under specific architectures). A fault-tolerant logical qubit today requires **on the order of hundreds to thousands of physical qubits** for its error correction. By contrast, today's commercial computers (IBM, Google, Quantinuum, IonQ) have **1,000–2,000 noisy *physical* qubits**, without the error correction needed to run Shor's algorithm at this scale. So the real gap between what exists today and what is needed is **far larger** than a raw comparison of the numbers suggests, and the cost of breaking larger keys does not scale linearly.
+
+The trend in the estimates, however, is unambiguously downward: several orders of magnitude of reduction in estimated resources over a decade. **The exact arrival date of a cryptographically relevant quantum computer (CRQC) is genuinely uncertain**; what is not uncertain is the direction, nor the fact that cryptographic infrastructure takes years to migrate. That asymmetry — slow migration versus a growing threat — is what justifies acting now.
 
 Timelines published by serious actors:
 
