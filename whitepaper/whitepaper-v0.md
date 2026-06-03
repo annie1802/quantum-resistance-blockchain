@@ -2,6 +2,8 @@
 ## Whitepaper técnico-económico
 **Versión 0.1 · Borrador inicial · Mayo 2026**
 
+> ⚠️ **DOCUMENTO OBSOLETO — superado por la v0.2.** Esta es la primera versión, conservada solo como histórico. La versión vigente es [`whitepaper-v0.2.md`](whitepaper-v0.2.md) (español) · [`whitepaper-v0.2.en.md`](whitepaper-v0.2.en.md) (English).
+
 ---
 
 ## Resumen ejecutivo
