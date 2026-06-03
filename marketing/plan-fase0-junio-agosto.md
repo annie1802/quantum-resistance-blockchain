@@ -1,7 +1,7 @@
 # Plan de Fase 0 — de junio al 1 de agosto de 2026
 
 Hoja de ruta semanal desde el lanzamiento (2 jun) hasta la fecha límite de la
-solicitud de NLNet/NGI Assure (**1 de agosto**).
+solicitud de NLNet/NGI Zero Commons Fund (**1 de agosto**, próxima convocatoria estimada).
 
 ## Principio rector
 
@@ -30,7 +30,7 @@ Si al 1 de agosto tienes eso, Fase 0 es un éxito — aunque X tenga 200 seguido
 - Publicar el **hilo en inglés** (`marketing/x-thread-en.md`).
 - Crear cuentas: **Reddit**, **Telegram**, **Hacker News**. NO postear el proyecto aún.
 - "Calentar" las cuentas: en Reddit, comentar de forma genuina en r/ethereum, r/cryptography, r/postquantum unos días (ganar algo de karma). En Telegram, unirse a 3-5 grupos de cripto PQ / Ethereum y solo leer/participar.
-- Revisar el borrador de NLNet (`grants/nlnet-assure-application-draft.md`) y anotar qué falta.
+- Revisar el borrador de NLNet (`grants/nlnet-commons-application-draft.md`) y anotar qué falta.
 
 ### Semana 2 (9–15 jun) — Primer alcance dirigido
 - **Hacker News**: un "Show HN" con el README del repo (cuenta nueva vale).

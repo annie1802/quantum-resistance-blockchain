@@ -405,7 +405,7 @@ QRB sigue una estrategia de financiación **escalonada y conservadora**, evitand
 
 **Fase 1** — subvenciones no dilutivas. Programas objetivo:
 
-- **NLNet / NGI Assure** (Comisión Europea, https://nlnet.nl/assure/) — financiación de criptografía abierta. Tramos 5.000-50.000 €, con posibilidad de aplicaciones encadenadas hasta 100.000 € si se entregan hitos.
+- **NLNet / NGI Zero Commons Fund** (Comisión Europea, https://nlnet.nl/commonsfund/) — financiación de tecnología abierta para internet, incluida la criptografía abierta. Tramos de 5.000-50.000 €, con posibilidad de escalar si hay potencial demostrado (hasta 500.000 € por proyecto a lo largo de la vida del fondo).
 - **Ethereum Foundation Ecosystem Support** — grants de investigación y tooling, PQ research específicamente bienvenida.
 - **Optimism RetroPGF** — pagos retroactivos por bienes públicos sobre OP Stack.
 - **Arbitrum Foundation Grants**.

@@ -1,8 +1,8 @@
-# NLNet NGI Assure — application draft
+# NLNet NGI Zero Commons Fund — application draft
 
-> **Status**: draft v0.2 — work in progress for submission to the NGI Assure call (target deadline: 1 August 2026).
+> **Status**: draft v0.3 — work in progress. NGI Assure closed its final call in 2023; this application now targets the **NGI Zero Commons Fund**, which runs rolling calls roughly every two months (the call that closed on 1 June 2026 was just missed; next expected call ~1 August 2026 — confirm the exact date before submitting).
 >
-> **Target program**: NGI Assure — https://nlnet.nl/assure/
+> **Target program**: NGI Zero Commons Fund — https://nlnet.nl/commonsfund/ (grant range €5,000–€50,000; requires a clear European Dimension)
 >
 > **Project**: QRB — Quantum-Resistance Blockchain
 >
@@ -36,7 +36,7 @@ No (first application).
 
 ## 5. Funding requested
 
-**€50,000** (initial first-stage Assure ticket).
+**€50,000** (top of the NGI Zero Commons Fund range of €5,000–€50,000).
 
 Milestone-based release with explicit deliverables tied to each tranche — see §11 below.
 
@@ -100,7 +100,7 @@ The Phase 0 prototype is a single-node, local-only blockchain. It is **not yet a
 
 ### 6.4 What this grant would fund (Phase 1)
 
-The €50,000 NLNet Assure grant would underwrite a focused **6-month Phase 1** with five concrete deliverables:
+The €50,000 NGI Zero Commons Fund grant would underwrite a focused **6-month Phase 1** with five concrete deliverables:
 
 1. **ML-DSA verifier as EVM precompile**. Fork of Reth (Rust EVM client) adding precompiles at fixed addresses (`0x100`–`0x103`) for ML-DSA-44, ML-DSA-65, ML-DSA-87 and FN-DSA-512 verification. Gas cost model published with benchmarks.
 
@@ -145,7 +145,7 @@ No known project pursues all five capabilities simultaneously. The privacy chain
 
 The quantum threat to elliptic-curve cryptography is no longer hypothetical. Once a cryptographically relevant quantum computer exists, every public key ever exposed on a public chain — that is, every wallet that has ever sent a transaction — becomes a forgery target. The total at-risk balance on Ethereum and Bitcoin alone exceeds 1 trillion USD at current valuations.
 
-Existing L1s cannot realistically migrate in time. Coordinated migration of Bitcoin's state has been estimated at a minimum 76 days of continuous on-chain activity assuming community consensus from day one — a consensus that Bitcoin's governance has never achieved in less than 18 months. Ethereum's roadmap acknowledges the problem but does not commit to a concrete deadline before 2030. Meanwhile, regulated institutions in the EU (under NIS2 and the upcoming NIS3 supplementary guidance for crypto-assets) will be required to demonstrate post-quantum resistance for critical infrastructure well before 2030.
+Existing L1s cannot realistically migrate in time. Coordinated migration of Bitcoin's state has been estimated at a minimum 76 days of continuous on-chain activity assuming community consensus from day one — a consensus that Bitcoin's governance has never achieved in less than 18 months. Ethereum's roadmap acknowledges the problem but does not commit to a concrete deadline before 2030. Meanwhile, regulated institutions in the EU (under NIS2 and its forthcoming supplementary implementing guidance) will be required to demonstrate post-quantum resistance for critical infrastructure well before 2030.
 
 The result is a clear infrastructure gap that no profit-driven L1 has a structural incentive to close. An open-source, grant-funded, L2 PQ-first project — designed for EVM compatibility so existing Ethereum apps and tooling can migrate without rewriting — is the cleanest path to closing that gap in the available time window. Phase 0 has demonstrated technical feasibility; Phase 1 (this grant) brings it to a public Ethereum-connected testnet.
 
@@ -193,7 +193,7 @@ The team is currently single-founder by design at Phase 0. The grant period will
 - **Senior Rust / Go developer** with blockchain-client experience (Geth, Reth, Erigon) — primary contributor on the Reth fork and bridge components.
 - **Cryptographer or advanced PhD student** with lattice / Dilithium / STARK expertise — review of the precompile implementation and design of the Phase 3 confidentiality layer foundations.
 
-Three external reviewers have reviewed the Phase 0 artefacts; one of those reviews led directly to a security fix in the block proposer validation and the addition of full CI. The cycle of public peer review is documented in `marketing/reviewer-response.md` in the repository.
+External peer review of the Phase 0 artefacts led directly to a security fix in the block proposer validation and to the addition of full CI; a subsequent manual QA pass found and fixed a recipient-address validation bug (with a regression test). The cycle of public peer review is documented in `marketing/reviewer-response.md` in the repository.
 
 ## 13. Standards and protocols used
 
@@ -230,11 +230,13 @@ The project commits to:
 
 ## 16. Why NLNet specifically?
 
-NGI Assure's explicit mission to fund applied research into post-quantum cryptographic infrastructure for the open internet aligns 1:1 with QRB's Phase 1 deliverables. Compared to industry funding sources, NLNet allows the project to:
+The NGI Zero Commons Fund's mission — funding research and development of free and open-source technology for the public good of the open internet — aligns 1:1 with QRB's Phase 1 deliverables, which are post-quantum cryptographic infrastructure released entirely under MIT/Apache-2.0. Compared to industry funding sources, NLNet allows the project to:
 
 - Maintain MIT/Apache-2.0 licensing without dilution pressure from venture capital.
 - Prioritise long-term security and standards alignment over short-term token-launch incentives.
 - Build a public-good infrastructure layer rather than a proprietary product.
+
+**European Dimension** (a hard eligibility criterion for the Commons Fund): the project is led from Spain (EU) by a natural person registered there; it targets compliance with EU regulation specifically (MiCA for any future token, NIS2 duty-of-care for critical infrastructure); and it builds on European open-source and research ecosystems (Ethereum, StarkWare, the EU's own QKD deployments). The infrastructure gap it closes is one that European regulated institutions will be required to address before 2030.
 
 The grant would be transformative for QRB's transition from credible Phase 0 prototype to public Ethereum-connected testnet, the milestone at which the project becomes evaluable by the wider ecosystem.
 
@@ -244,14 +246,14 @@ The grant would be transformative for QRB's transition from credible Phase 0 pro
 
 Before clicking "Submit" at https://nlnet.nl/propose/:
 
-- [ ] Verify the open call is active and accepting submissions for the target round.
+- [ ] Verify the next NGI Zero Commons Fund call is open and confirm its exact deadline at https://nlnet.nl/commonsfund/ (calls run roughly every two months; the 1 June 2026 call has closed, next expected ~1 August 2026).
 - [x] Confirm bank account in name of natural person or registered entity. **Decided: natural person (persona física), Luiggi Leonel Cedeño Bermeo.** No Estonia OÜ / SL for now — revisit only once recurring revenue exists.
-- [x] Confirm NIF details for invoicing as persona física. **Decided: NIE Y0422417J** (serves as NIF for a foreign natural person in Spain).
+- [x] Confirm NIF details for invoicing as persona física. **Decided: invoicing as a foreign natural person in Spain using the NIE as NIF.** (The actual NIE number is kept private and entered directly into the NLNet form — never committed to this public repository.)
 - [ ] Confirm address details for legal correspondence.
 - [ ] Cross-check the final wording against the actual form field names (some fields have character limits).
-- [ ] Attach: link to GitHub repo, link to whitepaper PDF, link to CI badge.
+- [ ] Attach: link to GitHub repo, link to the **English** whitepaper (`whitepaper/whitepaper-v0.2.en.md`), link to CI badge.
 - [x] Designate a primary correspondence email. **Decided: qrb.grants@proton.me** (dedicated, free).
-- [ ] Save a copy of the final submitted version under `grants/nlnet-assure-submitted-YYYY-MM-DD.md`.
+- [ ] Save a copy of the final submitted version under `grants/nlnet-commons-submitted-YYYY-MM-DD.md`.
 - [ ] Diarise the expected decision window (NLNet typically responds within 8–12 weeks).
 
 ## Appendix B — Founder decisions (resolved 31 May 2026)
@@ -267,6 +269,6 @@ The six previously-open items have been decided by the founder:
 
 Still to do before pressing Submit (not founder-blocking):
 
-- Verify the NGI Assure call is open for the target round before submitting.
+- Verify the next NGI Zero Commons Fund call is open for the target round before submitting.
 - Plan to accompany the application with a Reth-fork PoC (reason the deadline was moved to 1 August).
 - Lock in the quarterly public communication cadence as a real commitment, not aspirational.
