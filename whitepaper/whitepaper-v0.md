@@ -278,7 +278,7 @@ QRB sigue una estrategia de financiación **escalonada y conservadora**, evitand
 
 **Fase 1** — subvenciones (no dilutivas):
 
-- **NLNet / NGI Assure** (Comisión Europea) — financiación de infraestructura criptográfica abierta. Tramos típicos: 5.000-50.000 €. Encaje perfecto para PQ-cripto. Primera prioridad.
+- **NLNet / NGI Zero Commons Fund** (Comisión Europea) — financiación de infraestructura criptográfica abierta. Tramos típicos: 5.000-50.000 €. Encaje perfecto para PQ-cripto. Primera prioridad.
 - **Ethereum Foundation Ecosystem Support** — *grants* de investigación e *tooling*.
 - **Optimism RetroPGF / Arbitrum Foundation** — bienes públicos sobre OP Stack.
 - **Web3 Foundation** (Polkadot) — investigación criptográfica.

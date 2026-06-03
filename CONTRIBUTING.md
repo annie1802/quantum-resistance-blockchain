@@ -12,7 +12,7 @@ QRB is in **Phase 0 — Validation** (see the [roadmap in the README](README.md#
 
 - **Single founder** (Luiggi Leonel Cedeño Bermeo). No team yet, no paid contributors.
 - **Working Python prototype**, **whitepaper v0.2**, **CI on every push**. That's it.
-- **No paid track today.** Phase 1 contributions will be paid out of the [NLNet NGI Assure](grants/nlnet-assure-application-draft.md) grant we're submitting before 1 August 2026 (€50K over 6 months, milestone-released). That money does not exist yet. If you contribute today, you are contributing for free.
+- **No paid track today.** Phase 1 contributions will be paid out of the [NLNet NGI Zero Commons Fund](grants/nlnet-commons-application-draft.md) grant we're applying for (next call expected ~1 August 2026; €50K over 6 months, milestone-released). That money does not exist yet. If you contribute today, you are contributing for free.
 - **No token.** Not now, not in Phase 0, not in Phase 1. Read the [funding philosophy in the README](README.md#funding-philosophy). If you came looking for an allocation, this is not the project.
 
 If that's still interesting to you, keep reading.
@@ -113,7 +113,7 @@ Python: stdlib + `dilithium-py` only for the prototype core. No new dependencies
 | When | What | Source |
 |---|---|---|
 | **Today, Phase 0** | €0. Open source, MIT, no implicit IOU. | — |
-| **Phase 1, if NLNet funds us** | Paid work for the contributors who join the milestone deliverables. Reference rate **35 €/h** (some lines 25-30 €/h). | NLNet NGI Assure grant — see [grants/nlnet-assure-application-draft.md](grants/nlnet-assure-application-draft.md) |
+| **Phase 1, if NLNet funds us** | Paid work for the contributors who join the milestone deliverables. Reference rate **35 €/h** (some lines 25-30 €/h). | NLNet NGI Zero Commons Fund grant — see [grants/nlnet-commons-application-draft.md](grants/nlnet-commons-application-draft.md) |
 | **Phase 2+** | Decided later. Possibly a seed round, possibly a MiCA-compliant token process, possibly more grants. No promises today. | — |
 
 If you do meaningful Phase 0 work and we get the NLNet grant, **you go to the top of the list** for paid Phase 1 work. That's not a contract — I can't make that legally binding from a free contribution — but it's the honest version.

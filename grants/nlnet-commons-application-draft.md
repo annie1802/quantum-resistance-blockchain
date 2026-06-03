@@ -1,8 +1,8 @@
-# NLNet NGI Assure — application draft
+# NLNet NGI Zero Commons Fund — application draft
 
-> **Status**: draft v0.2 — work in progress for submission to the NGI Assure call (target deadline: 1 August 2026).
+> **Status**: draft v0.3 — work in progress. NGI Assure closed its final call in 2023; this application now targets the **NGI Zero Commons Fund**, which runs rolling calls roughly every two months (the call that closed on 1 June 2026 was just missed; next expected call ~1 August 2026 — confirm the exact date before submitting).
 >
-> **Target program**: NGI Assure — https://nlnet.nl/assure/
+> **Target program**: NGI Zero Commons Fund — https://nlnet.nl/commonsfund/ (grant range €5,000–€50,000; requires a clear European Dimension)
 >
 > **Project**: QRB — Quantum-Resistance Blockchain
 >
@@ -28,7 +28,7 @@ https://github.com/Fiyiware/quantum-resistance-blockchain
 
 ## 3. Abstract / one-paragraph summary (≤ ~1200 characters)
 
-QRB is an open-source research and prototype track for a post-quantum Layer 2 blockchain compatible with Ethereum. It addresses two distinct quantum threats to existing crypto infrastructure: (1) signature forgery via Shor's algorithm on ECDSA, which puts the ≈6.9 million BTC and the entire Ethereum state with exposed public keys at risk of impersonation; and (2) "harvest now, decrypt later" — the structural failure of today's privacy chains (Aleo, Aztec) whose SNARK-based proofs are themselves quantum-vulnerable. QRB's roadmap covers both: post-quantum authentication via NIST FIPS 204 ML-DSA-65, already implemented in the Phase 0 prototype; and a post-quantum confidentiality layer based on STARKs (hash-based, natively post-quantum) and lattice commitments, in Phase 3+ research. Fully EVM-compatible, with Account Abstraction PQ-native to absorb the larger signature footprint at the UX layer. NLNet funding would underwrite Phase 1: smart account PQ verifier, EVM client fork with DSARECOVER precompile, and a minimal bridge devnet to Ethereum Sepolia.
+QRB is an open-source research and prototype track for a post-quantum Layer 2 blockchain compatible with Ethereum. It addresses two distinct quantum threats to existing crypto infrastructure: (1) signature forgery via Shor's algorithm on ECDSA, which puts the ≈6.9 million BTC and the entire Ethereum state with exposed public keys at risk of impersonation; and (2) "harvest now, decrypt later" — the structural failure of today's privacy chains (Aleo, Aztec) whose SNARK-based proofs are themselves quantum-vulnerable. QRB's roadmap covers both: post-quantum authentication via NIST FIPS 204 ML-DSA-65, already implemented in the Phase 0 prototype; and a post-quantum confidentiality layer based on STARKs (hash-based, natively post-quantum) and lattice commitments, in Phase 3+ research. Fully EVM-compatible, with Account Abstraction PQ-native to absorb the larger signature footprint at the UX layer. NLNet funding would underwrite a focused Phase 1 core: an EVM client fork with an ML-DSA precompile (DSARECOVER), a PQ-native ERC-4337 smart account, a public devnet, and a JavaScript SDK with a reference PQ wallet — with an Ethereum-Sepolia bridge framed as a stretch goal rather than a payment-gated commitment.
 
 ## 4. Have you been involved with the NGI initiative before?
 
@@ -36,7 +36,7 @@ No (first application).
 
 ## 5. Funding requested
 
-**€50,000** (initial first-stage Assure ticket).
+**€50,000** (top of the NGI Zero Commons Fund range of €5,000–€50,000).
 
 Milestone-based release with explicit deliverables tied to each tranche — see §11 below.
 
@@ -100,17 +100,22 @@ The Phase 0 prototype is a single-node, local-only blockchain. It is **not yet a
 
 ### 6.4 What this grant would fund (Phase 1)
 
-The €50,000 NLNet Assure grant would underwrite a focused **6-month Phase 1** with five concrete deliverables:
+The €50,000 NGI Zero Commons Fund grant would underwrite a focused **6-month Phase 1**. The scope is deliberately conservative: four **core deliverables** that are fully fundable and achievable within the budget, plus **stretch goals** pursued only if the core completes ahead of schedule (otherwise proposed as a follow-on Commons Fund application — the fund explicitly supports scaling up proven projects).
+
+**Core deliverables (the firm commitment of this grant):**
 
 1. **ML-DSA verifier as EVM precompile**. Fork of Reth (Rust EVM client) adding precompiles at fixed addresses (`0x100`–`0x103`) for ML-DSA-44, ML-DSA-65, ML-DSA-87 and FN-DSA-512 verification. Gas cost model published with benchmarks.
 
 2. **PQ Smart Account in Solidity**. Reference implementation of an ERC-4337-compatible smart account that validates ML-DSA signatures via the new precompile. Includes paymaster support, key rotation, and social recovery primitives.
 
-3. **Devnet**. Single-node devnet running the modified Reth fork with the precompiles active, exposed via standard JSON-RPC. Genesis-funded test wallets distributed via faucet.
+3. **Public devnet**. Single-node devnet running the modified Reth fork with the precompiles active, exposed via standard JSON-RPC. Genesis-funded test wallets distributed via faucet. This is the milestone at which the work becomes externally evaluable: anyone can submit a transaction validated by an ML-DSA signature end-to-end.
 
-4. **Ethereum-Sepolia bridge prototype**. Minimal optimistic-rollup-style bridge enabling deposit/withdrawal of testnet ETH between Ethereum Sepolia and the QRB devnet. Withdrawal challenge window: 7 days, aligned with Optimism convention.
+4. **Developer SDK (JavaScript) + reference PQ wallet**. A JavaScript library for generating PQ wallets, signing transactions, deploying smart accounts and interacting with the devnet via RPC, plus one reference dApp (a browser PQ wallet) demonstrating the full flow.
 
-5. **Open developer SDK**. JavaScript and Rust libraries for: generating PQ wallets, signing transactions, deploying smart accounts, interacting with the devnet via RPC. Three reference dApps demonstrating end-to-end flows.
+**Stretch goals (vision; next tranche / follow-on application if the core lands early):**
+
+- **Ethereum-Sepolia bridge prototype** — a minimal optimistic-rollup-style bridge for testnet deposit/withdrawal (7-day challenge window, Optimism convention). This is the hardest, highest-risk component and is intentionally *not* tied to a payment milestone; it is pursued only once the core is solid.
+- **Rust SDK** and two further reference dApps (a PQ ERC-20 token and a PQ multisig).
 
 All artefacts published under MIT/Apache-2.0 dual licence.
 
@@ -135,7 +140,7 @@ No known project pursues all five capabilities simultaneously. The privacy chain
 
 - **Hybrid signature transition**. During the migration window, transactions can be signed with both ECDSA and ML-DSA; both must verify for the transaction to be valid. Smart-account semantics for hybrid mode require careful design to avoid signature-confusion attacks.
 
-- **Bridge safety with PQ signatures by sequencer**. The optimistic rollup bridge must use PQ signatures for the sequencer and challenger roles to be coherent with the chain's threat model.
+- **Bridge safety with PQ signatures by sequencer** (stretch-goal component). The optimistic rollup bridge must use PQ signatures for the sequencer and challenger roles to be coherent with the chain's threat model. Its difficulty is precisely why it is scoped as a stretch goal rather than a core, payment-gated deliverable.
 
 - **Key rotation under PQ**. Stateless verification of frequent key rotations requires either stateful key trees (XMSS-style) or careful contract-account design. We default to ML-DSA (stateless) and address rotation at the AA-contract level.
 
@@ -145,7 +150,7 @@ No known project pursues all five capabilities simultaneously. The privacy chain
 
 The quantum threat to elliptic-curve cryptography is no longer hypothetical. Once a cryptographically relevant quantum computer exists, every public key ever exposed on a public chain — that is, every wallet that has ever sent a transaction — becomes a forgery target. The total at-risk balance on Ethereum and Bitcoin alone exceeds 1 trillion USD at current valuations.
 
-Existing L1s cannot realistically migrate in time. Coordinated migration of Bitcoin's state has been estimated at a minimum 76 days of continuous on-chain activity assuming community consensus from day one — a consensus that Bitcoin's governance has never achieved in less than 18 months. Ethereum's roadmap acknowledges the problem but does not commit to a concrete deadline before 2030. Meanwhile, regulated institutions in the EU (under NIS2 and the upcoming NIS3 supplementary guidance for crypto-assets) will be required to demonstrate post-quantum resistance for critical infrastructure well before 2030.
+Existing L1s cannot realistically migrate in time. Coordinated migration of Bitcoin's state has been estimated at a minimum 76 days of continuous on-chain activity assuming community consensus from day one — a consensus that Bitcoin's governance has never achieved in less than 18 months. Ethereum's roadmap acknowledges the problem but does not commit to a concrete deadline before 2030. Meanwhile, regulated institutions in the EU (under NIS2 and its forthcoming supplementary implementing guidance) will be required to demonstrate post-quantum resistance for critical infrastructure well before 2030.
 
 The result is a clear infrastructure gap that no profit-driven L1 has a structural incentive to close. An open-source, grant-funded, L2 PQ-first project — designed for EVM compatibility so existing Ethereum apps and tooling can migrate without rewriting — is the cleanest path to closing that gap in the available time window. Phase 0 has demonstrated technical feasibility; Phase 1 (this grant) brings it to a public Ethereum-connected testnet.
 
@@ -162,27 +167,29 @@ The result is a clear infrastructure gap that no profit-driven L1 has a structur
 
 ## 11. Time and money — budget breakdown
 
+The budget funds the **four core deliverables** of §6.4. Stretch goals (bridge, Rust SDK, extra dApps) are explicitly **not** funded by this tranche.
+
 | Workstream | Hours | Rate (€/h) | Subtotal (€) |
 |------------|------:|-----------:|-------------:|
-| Reth fork + ML-DSA precompiles + benchmarks | 240 | 35 | 8,400 |
-| PQ Smart Account in Solidity + paymaster + key rotation | 200 | 35 | 7,000 |
-| Devnet, RPC, faucet, observability | 120 | 30 | 3,600 |
-| Bridge prototype Sepolia ↔ QRB devnet | 240 | 35 | 8,400 |
-| Developer SDK (JS + Rust) and 3 reference dApps | 200 | 30 | 6,000 |
-| External security review (focused PQ primitive) | — | — | 8,000 |
+| Reth fork + ML-DSA precompiles + gas benchmarks | 280 | 35 | 9,800 |
+| PQ Smart Account in Solidity + paymaster + key rotation + social recovery | 240 | 35 | 8,400 |
+| Public devnet, RPC, faucet, observability | 140 | 30 | 4,200 |
+| Developer SDK (JS) + reference PQ wallet dApp | 160 | 30 | 4,800 |
+| External security review (PQ precompile + smart account) | — | — | 9,000 |
 | Documentation, dev examples, public update posts | 120 | 25 | 3,000 |
 | Founder coordination, governance, dissemination | 200 | 25 | 5,000 |
+| Contingency / buffer for integration and review fixes | — | — | 5,200 |
 | Cloud, domains, registry fees, misc | — | — | 600 |
-| **Total** | **1,320** | — | **€50,000** |
+| **Total** | **1,140** | — | **€50,000** |
 
-Hourly rates reflect Spanish independent contractor norms for blockchain engineering work and are below market for Western-European salaried equivalents. Founder time is priced at a non-distorting rate consistent with grant-funded research.
+Hourly rates reflect Spanish independent contractor norms for blockchain engineering work and are below market for Western-European salaried equivalents. Founder time is priced at a non-distorting rate consistent with grant-funded research. The explicit contingency line reflects honest estimation: integration and post-review fixes routinely consume more time than first planned.
 
-Milestone release proposal:
+Milestone release proposal (each tranche gated on an achievable core deliverable, not on the highest-risk work):
 
-- **30% on signed agreement** — Reth fork branch and Solidity smart account scaffold public.
-- **30% on devnet live** — modified Reth running publicly, faucet operational.
-- **30% on bridge tx end-to-end** — first deposit-and-withdrawal cycle Sepolia ↔ devnet documented in repository.
-- **10% on final report and SDK release** — JS+Rust libraries published to npm and crates.io.
+- **30% on signed agreement** — Reth fork branch and Solidity smart-account scaffold public.
+- **30% on devnet live** — modified Reth running publicly with PQ precompiles active, faucet operational.
+- **30% on PQ smart account end-to-end** — a transaction validated by an ML-DSA signature through the precompile, executed on the public devnet and documented in the repository.
+- **10% on final report + SDK + reference wallet** — JS SDK published to npm and the reference PQ wallet dApp live.
 
 ## 12. Team and track record
 
@@ -193,7 +200,7 @@ The team is currently single-founder by design at Phase 0. The grant period will
 - **Senior Rust / Go developer** with blockchain-client experience (Geth, Reth, Erigon) — primary contributor on the Reth fork and bridge components.
 - **Cryptographer or advanced PhD student** with lattice / Dilithium / STARK expertise — review of the precompile implementation and design of the Phase 3 confidentiality layer foundations.
 
-Three external reviewers have reviewed the Phase 0 artefacts; one of those reviews led directly to a security fix in the block proposer validation and the addition of full CI. The cycle of public peer review is documented in `marketing/reviewer-response.md` in the repository.
+External peer review of the Phase 0 artefacts led directly to a security fix in the block proposer validation and to the addition of full CI; a subsequent manual QA pass found and fixed a recipient-address validation bug (with a regression test). The cycle of public peer review is documented in `marketing/reviewer-response.md` in the repository.
 
 ## 13. Standards and protocols used
 
@@ -215,7 +222,7 @@ Three external reviewers have reviewed the Phase 0 artefacts; one of those revie
 | Cryptanalytic break of ML-DSA before mainnet | Low | Modular signature design enables hot-swap to SLH-DSA in <30 days; pre-existing plan documented |
 | Ethereum L1 migrates to PQ faster than expected | Medium | QRB pivots to specialisation (confidential PQ, QKD institutional bridge) — capability the L1 will not absorb |
 | Single founder bottleneck during Phase 1 | Medium-high | Grant is structured to fund team onboarding as primary first milestone; founder commits to fulltime for grant period |
-| Bridge security regression | Medium | External security review tranche reserved for precompile + bridge; bug bounty programme set up before public testnet exposure |
+| Security regression in precompile or smart account | Medium | Dedicated external security review tranche (€9,000) reserved for the PQ precompile + smart account; bug bounty programme set up before public testnet exposure. The bridge is a stretch goal and would carry its own review before any deployment |
 | Regulatory turbulence (MiCA secondary acts) | Medium | Conservative governance; no token issuance during Phase 1; legal advice retained for Phase 2 token-issuance preparations |
 
 ## 15. Public communication and dissemination
@@ -230,11 +237,13 @@ The project commits to:
 
 ## 16. Why NLNet specifically?
 
-NGI Assure's explicit mission to fund applied research into post-quantum cryptographic infrastructure for the open internet aligns 1:1 with QRB's Phase 1 deliverables. Compared to industry funding sources, NLNet allows the project to:
+The NGI Zero Commons Fund's mission — funding research and development of free and open-source technology for the public good of the open internet — aligns 1:1 with QRB's Phase 1 deliverables, which are post-quantum cryptographic infrastructure released entirely under MIT/Apache-2.0. Compared to industry funding sources, NLNet allows the project to:
 
 - Maintain MIT/Apache-2.0 licensing without dilution pressure from venture capital.
 - Prioritise long-term security and standards alignment over short-term token-launch incentives.
 - Build a public-good infrastructure layer rather than a proprietary product.
+
+**European Dimension** (a hard eligibility criterion for the Commons Fund): the project is led from Spain (EU) by a natural person registered there; it targets compliance with EU regulation specifically (MiCA for any future token, NIS2 duty-of-care for critical infrastructure); and it builds on European open-source and research ecosystems (Ethereum, StarkWare, the EU's own QKD deployments). The infrastructure gap it closes is one that European regulated institutions will be required to address before 2030.
 
 The grant would be transformative for QRB's transition from credible Phase 0 prototype to public Ethereum-connected testnet, the milestone at which the project becomes evaluable by the wider ecosystem.
 
@@ -244,14 +253,14 @@ The grant would be transformative for QRB's transition from credible Phase 0 pro
 
 Before clicking "Submit" at https://nlnet.nl/propose/:
 
-- [ ] Verify the open call is active and accepting submissions for the target round.
+- [ ] Verify the next NGI Zero Commons Fund call is open and confirm its exact deadline at https://nlnet.nl/commonsfund/ (calls run roughly every two months; the 1 June 2026 call has closed, next expected ~1 August 2026).
 - [x] Confirm bank account in name of natural person or registered entity. **Decided: natural person (persona física), Luiggi Leonel Cedeño Bermeo.** No Estonia OÜ / SL for now — revisit only once recurring revenue exists.
-- [x] Confirm NIF details for invoicing as persona física. **Decided: NIE Y0422417J** (serves as NIF for a foreign natural person in Spain).
+- [x] Confirm NIF details for invoicing as persona física. **Decided: invoicing as a foreign natural person in Spain using the NIE as NIF.** (The actual NIE number is kept private and entered directly into the NLNet form — never committed to this public repository.)
 - [ ] Confirm address details for legal correspondence.
 - [ ] Cross-check the final wording against the actual form field names (some fields have character limits).
-- [ ] Attach: link to GitHub repo, link to whitepaper PDF, link to CI badge.
+- [ ] Attach: link to GitHub repo, link to the **English** whitepaper (`whitepaper/whitepaper-v0.2.en.md`), link to CI badge.
 - [x] Designate a primary correspondence email. **Decided: qrb.grants@proton.me** (dedicated, free).
-- [ ] Save a copy of the final submitted version under `grants/nlnet-assure-submitted-YYYY-MM-DD.md`.
+- [ ] Save a copy of the final submitted version under `grants/nlnet-commons-submitted-YYYY-MM-DD.md`.
 - [ ] Diarise the expected decision window (NLNet typically responds within 8–12 weeks).
 
 ## Appendix B — Founder decisions (resolved 31 May 2026)
@@ -267,6 +276,6 @@ The six previously-open items have been decided by the founder:
 
 Still to do before pressing Submit (not founder-blocking):
 
-- Verify the NGI Assure call is open for the target round before submitting.
+- Verify the next NGI Zero Commons Fund call is open for the target round before submitting.
 - Plan to accompany the application with a Reth-fork PoC (reason the deadline was moved to 1 August).
 - Lock in the quarterly public communication cadence as a real commitment, not aspirational.

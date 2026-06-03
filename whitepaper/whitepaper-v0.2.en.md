@@ -402,7 +402,7 @@ QRB follows a **staged and conservative** funding strategy, avoiding the *ICO-be
 
 **Phase 1** — non-dilutive grants. Target programs:
 
-- **NLNet / NGI Assure** (European Commission, https://nlnet.nl/assure/) — funding for open cryptography. Tranches of €5,000–50,000, with the possibility of chained applications up to €100,000 if milestones are delivered.
+- **NLNet / NGI Zero Commons Fund** (European Commission, https://nlnet.nl/commonsfund/) — funding for open-source internet technology, including open cryptography. Grants of €5,000–50,000, with the possibility to scale up for proven potential (up to €500,000 per project over the fund's lifetime).
 - **Ethereum Foundation Ecosystem Support** — research and tooling grants, PQ research specifically welcome.
 - **Optimism RetroPGF** — retroactive payments for public goods on the OP Stack.
 - **Arbitrum Foundation Grants**.
