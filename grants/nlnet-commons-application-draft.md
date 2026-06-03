@@ -28,7 +28,7 @@ https://github.com/Fiyiware/quantum-resistance-blockchain
 
 ## 3. Abstract / one-paragraph summary (≤ ~1200 characters)
 
-QRB is an open-source research and prototype track for a post-quantum Layer 2 blockchain compatible with Ethereum. It addresses two distinct quantum threats to existing crypto infrastructure: (1) signature forgery via Shor's algorithm on ECDSA, which puts the ≈6.9 million BTC and the entire Ethereum state with exposed public keys at risk of impersonation; and (2) "harvest now, decrypt later" — the structural failure of today's privacy chains (Aleo, Aztec) whose SNARK-based proofs are themselves quantum-vulnerable. QRB's roadmap covers both: post-quantum authentication via NIST FIPS 204 ML-DSA-65, already implemented in the Phase 0 prototype; and a post-quantum confidentiality layer based on STARKs (hash-based, natively post-quantum) and lattice commitments, in Phase 3+ research. Fully EVM-compatible, with Account Abstraction PQ-native to absorb the larger signature footprint at the UX layer. NLNet funding would underwrite Phase 1: smart account PQ verifier, EVM client fork with DSARECOVER precompile, and a minimal bridge devnet to Ethereum Sepolia.
+QRB is an open-source research and prototype track for a post-quantum Layer 2 blockchain compatible with Ethereum. It addresses two distinct quantum threats to existing crypto infrastructure: (1) signature forgery via Shor's algorithm on ECDSA, which puts the ≈6.9 million BTC and the entire Ethereum state with exposed public keys at risk of impersonation; and (2) "harvest now, decrypt later" — the structural failure of today's privacy chains (Aleo, Aztec) whose SNARK-based proofs are themselves quantum-vulnerable. QRB's roadmap covers both: post-quantum authentication via NIST FIPS 204 ML-DSA-65, already implemented in the Phase 0 prototype; and a post-quantum confidentiality layer based on STARKs (hash-based, natively post-quantum) and lattice commitments, in Phase 3+ research. Fully EVM-compatible, with Account Abstraction PQ-native to absorb the larger signature footprint at the UX layer. NLNet funding would underwrite a focused Phase 1 core: an EVM client fork with an ML-DSA precompile (DSARECOVER), a PQ-native ERC-4337 smart account, a public devnet, and a JavaScript SDK with a reference PQ wallet — with an Ethereum-Sepolia bridge framed as a stretch goal rather than a payment-gated commitment.
 
 ## 4. Have you been involved with the NGI initiative before?
 
@@ -100,17 +100,22 @@ The Phase 0 prototype is a single-node, local-only blockchain. It is **not yet a
 
 ### 6.4 What this grant would fund (Phase 1)
 
-The €50,000 NGI Zero Commons Fund grant would underwrite a focused **6-month Phase 1** with five concrete deliverables:
+The €50,000 NGI Zero Commons Fund grant would underwrite a focused **6-month Phase 1**. The scope is deliberately conservative: four **core deliverables** that are fully fundable and achievable within the budget, plus **stretch goals** pursued only if the core completes ahead of schedule (otherwise proposed as a follow-on Commons Fund application — the fund explicitly supports scaling up proven projects).
+
+**Core deliverables (the firm commitment of this grant):**
 
 1. **ML-DSA verifier as EVM precompile**. Fork of Reth (Rust EVM client) adding precompiles at fixed addresses (`0x100`–`0x103`) for ML-DSA-44, ML-DSA-65, ML-DSA-87 and FN-DSA-512 verification. Gas cost model published with benchmarks.
 
 2. **PQ Smart Account in Solidity**. Reference implementation of an ERC-4337-compatible smart account that validates ML-DSA signatures via the new precompile. Includes paymaster support, key rotation, and social recovery primitives.
 
-3. **Devnet**. Single-node devnet running the modified Reth fork with the precompiles active, exposed via standard JSON-RPC. Genesis-funded test wallets distributed via faucet.
+3. **Public devnet**. Single-node devnet running the modified Reth fork with the precompiles active, exposed via standard JSON-RPC. Genesis-funded test wallets distributed via faucet. This is the milestone at which the work becomes externally evaluable: anyone can submit a transaction validated by an ML-DSA signature end-to-end.
 
-4. **Ethereum-Sepolia bridge prototype**. Minimal optimistic-rollup-style bridge enabling deposit/withdrawal of testnet ETH between Ethereum Sepolia and the QRB devnet. Withdrawal challenge window: 7 days, aligned with Optimism convention.
+4. **Developer SDK (JavaScript) + reference PQ wallet**. A JavaScript library for generating PQ wallets, signing transactions, deploying smart accounts and interacting with the devnet via RPC, plus one reference dApp (a browser PQ wallet) demonstrating the full flow.
 
-5. **Open developer SDK**. JavaScript and Rust libraries for: generating PQ wallets, signing transactions, deploying smart accounts, interacting with the devnet via RPC. Three reference dApps demonstrating end-to-end flows.
+**Stretch goals (vision; next tranche / follow-on application if the core lands early):**
+
+- **Ethereum-Sepolia bridge prototype** — a minimal optimistic-rollup-style bridge for testnet deposit/withdrawal (7-day challenge window, Optimism convention). This is the hardest, highest-risk component and is intentionally *not* tied to a payment milestone; it is pursued only once the core is solid.
+- **Rust SDK** and two further reference dApps (a PQ ERC-20 token and a PQ multisig).
 
 All artefacts published under MIT/Apache-2.0 dual licence.
 
@@ -135,7 +140,7 @@ No known project pursues all five capabilities simultaneously. The privacy chain
 
 - **Hybrid signature transition**. During the migration window, transactions can be signed with both ECDSA and ML-DSA; both must verify for the transaction to be valid. Smart-account semantics for hybrid mode require careful design to avoid signature-confusion attacks.
 
-- **Bridge safety with PQ signatures by sequencer**. The optimistic rollup bridge must use PQ signatures for the sequencer and challenger roles to be coherent with the chain's threat model.
+- **Bridge safety with PQ signatures by sequencer** (stretch-goal component). The optimistic rollup bridge must use PQ signatures for the sequencer and challenger roles to be coherent with the chain's threat model. Its difficulty is precisely why it is scoped as a stretch goal rather than a core, payment-gated deliverable.
 
 - **Key rotation under PQ**. Stateless verification of frequent key rotations requires either stateful key trees (XMSS-style) or careful contract-account design. We default to ML-DSA (stateless) and address rotation at the AA-contract level.
 
@@ -162,27 +167,29 @@ The result is a clear infrastructure gap that no profit-driven L1 has a structur
 
 ## 11. Time and money — budget breakdown
 
+The budget funds the **four core deliverables** of §6.4. Stretch goals (bridge, Rust SDK, extra dApps) are explicitly **not** funded by this tranche.
+
 | Workstream | Hours | Rate (€/h) | Subtotal (€) |
 |------------|------:|-----------:|-------------:|
-| Reth fork + ML-DSA precompiles + benchmarks | 240 | 35 | 8,400 |
-| PQ Smart Account in Solidity + paymaster + key rotation | 200 | 35 | 7,000 |
-| Devnet, RPC, faucet, observability | 120 | 30 | 3,600 |
-| Bridge prototype Sepolia ↔ QRB devnet | 240 | 35 | 8,400 |
-| Developer SDK (JS + Rust) and 3 reference dApps | 200 | 30 | 6,000 |
-| External security review (focused PQ primitive) | — | — | 8,000 |
+| Reth fork + ML-DSA precompiles + gas benchmarks | 280 | 35 | 9,800 |
+| PQ Smart Account in Solidity + paymaster + key rotation + social recovery | 240 | 35 | 8,400 |
+| Public devnet, RPC, faucet, observability | 140 | 30 | 4,200 |
+| Developer SDK (JS) + reference PQ wallet dApp | 160 | 30 | 4,800 |
+| External security review (PQ precompile + smart account) | — | — | 9,000 |
 | Documentation, dev examples, public update posts | 120 | 25 | 3,000 |
 | Founder coordination, governance, dissemination | 200 | 25 | 5,000 |
+| Contingency / buffer for integration and review fixes | — | — | 5,200 |
 | Cloud, domains, registry fees, misc | — | — | 600 |
-| **Total** | **1,320** | — | **€50,000** |
+| **Total** | **1,140** | — | **€50,000** |
 
-Hourly rates reflect Spanish independent contractor norms for blockchain engineering work and are below market for Western-European salaried equivalents. Founder time is priced at a non-distorting rate consistent with grant-funded research.
+Hourly rates reflect Spanish independent contractor norms for blockchain engineering work and are below market for Western-European salaried equivalents. Founder time is priced at a non-distorting rate consistent with grant-funded research. The explicit contingency line reflects honest estimation: integration and post-review fixes routinely consume more time than first planned.
 
-Milestone release proposal:
+Milestone release proposal (each tranche gated on an achievable core deliverable, not on the highest-risk work):
 
-- **30% on signed agreement** — Reth fork branch and Solidity smart account scaffold public.
-- **30% on devnet live** — modified Reth running publicly, faucet operational.
-- **30% on bridge tx end-to-end** — first deposit-and-withdrawal cycle Sepolia ↔ devnet documented in repository.
-- **10% on final report and SDK release** — JS+Rust libraries published to npm and crates.io.
+- **30% on signed agreement** — Reth fork branch and Solidity smart-account scaffold public.
+- **30% on devnet live** — modified Reth running publicly with PQ precompiles active, faucet operational.
+- **30% on PQ smart account end-to-end** — a transaction validated by an ML-DSA signature through the precompile, executed on the public devnet and documented in the repository.
+- **10% on final report + SDK + reference wallet** — JS SDK published to npm and the reference PQ wallet dApp live.
 
 ## 12. Team and track record
 
@@ -215,7 +222,7 @@ External peer review of the Phase 0 artefacts led directly to a security fix in 
 | Cryptanalytic break of ML-DSA before mainnet | Low | Modular signature design enables hot-swap to SLH-DSA in <30 days; pre-existing plan documented |
 | Ethereum L1 migrates to PQ faster than expected | Medium | QRB pivots to specialisation (confidential PQ, QKD institutional bridge) — capability the L1 will not absorb |
 | Single founder bottleneck during Phase 1 | Medium-high | Grant is structured to fund team onboarding as primary first milestone; founder commits to fulltime for grant period |
-| Bridge security regression | Medium | External security review tranche reserved for precompile + bridge; bug bounty programme set up before public testnet exposure |
+| Security regression in precompile or smart account | Medium | Dedicated external security review tranche (€9,000) reserved for the PQ precompile + smart account; bug bounty programme set up before public testnet exposure. The bridge is a stretch goal and would carry its own review before any deployment |
 | Regulatory turbulence (MiCA secondary acts) | Medium | Conservative governance; no token issuance during Phase 1; legal advice retained for Phase 2 token-issuance preparations |
 
 ## 15. Public communication and dissemination
