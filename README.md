@@ -10,7 +10,7 @@ This README is deliberately careful to distinguish **implemented**, **designed**
 
 [![CI](https://github.com/Fiyiware/quantum-resistance-blockchain/actions/workflows/ci.yml/badge.svg)](https://github.com/Fiyiware/quantum-resistance-blockchain/actions/workflows/ci.yml)
 ![Status](https://img.shields.io/badge/status-Phase%200-0b3d91)
-![License](https://img.shields.io/badge/license-MIT-green)
+![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-green)
 ![Whitepaper](https://img.shields.io/badge/whitepaper-v0.2-orange)
 ![Made with](https://img.shields.io/badge/made%20with-Python%20%2B%20Dilithium-blueviolet)
 
@@ -90,8 +90,10 @@ quantum-resistance-blockchain/
 ├── marketing/                     Public launch materials (X thread, launch kit)
 ├── .github/workflows/             Continuous integration (GitHub Actions)
 ├── resumen.md                     ~700-word pitch (Spanish)
+├── summary.en.md                  ~700-word pitch (English)
 ├── README.md                      This file
-└── LICENSE                        MIT
+├── LICENSE-MIT                    MIT license
+└── LICENSE-APACHE                 Apache-2.0 license
 ```
 
 ---
@@ -191,7 +193,7 @@ If you reference QRB in academic work, please cite:
 
 ## License
 
-Released under the [MIT License](LICENSE) for maximum compatibility with the open-source ecosystem.
+Dual-licensed under either the [MIT License](LICENSE-MIT) or the [Apache License 2.0](LICENSE-APACHE), at your option — the same dual-licensing convention used across the Rust ecosystem, chosen for maximum compatibility and an explicit patent grant (Apache-2.0).
 
 ---
 

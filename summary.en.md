@@ -6,11 +6,11 @@
 
 ## In one sentence
 
-QRB is the first Layer 2 (L2) on Ethereum designed from the ground up to resist quantum computers, letting existing users and applications protect their digital assets without leaving the Ethereum ecosystem.
+QRB is a research and prototype track for a Layer 2 (L2) on Ethereum designed from the ground up to resist quantum computers, with the goal of letting existing users and applications protect their digital assets without leaving the Ethereum ecosystem.
 
 ## Why it matters
 
-All of the cryptography protecting Bitcoin, Ethereum and almost every blockchain today can be broken by a large enough quantum computer. Experts estimate its arrival between 2030 and 2040.
+All of the cryptography protecting Bitcoin, Ethereum and almost every blockchain today can be broken by a large enough quantum computer. Over the past two years the expert consensus on its arrival has contracted from "2040 or later" to a window of **2028–2032** (the exact date remains genuinely uncertain).
 
 Meanwhile, state and private actors are already storing encrypted transactions to decrypt them once such computers exist ("harvest now, decrypt later"). European (NIS2, MiCA) and US (NIST 2024, CNSA 2.0) regulation is already starting to require quantum resistance for critical infrastructure.
 
