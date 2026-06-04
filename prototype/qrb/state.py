@@ -41,6 +41,8 @@ class WorldState:
         self._ensure(address).nonce += 1
 
     def apply_transaction(self, tx: Transaction) -> None:
+        if tx.amount < 0:
+    raise ValueError("Amount cannot be negative")
         """Aplica una transacción ya validada al estado.
 
         Valida firma + nonce + saldo antes de mutar nada.
