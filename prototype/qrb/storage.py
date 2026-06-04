@@ -16,4 +16,15 @@ def save_json(path: Path, data: Any) -> None:
 
 
 def load_json(path: Path) -> Any:
-    return json.loads(path.read_text())
+    """Carga JSON desde un archivo, lanzando un error claro que nombra el
+    archivo si está corrupto (proceso cortado a mitad de escritura, JSON
+    editado a mano, etc.). El CLI convierte el ValueError en 'ERROR: ...'
+    con código de salida 1."""
+    try:
+        return json.loads(path.read_text())
+    except (json.JSONDecodeError, OSError) as exc:
+        raise ValueError(
+            f"no se pudo leer o parsear {path} -- el archivo puede estar "
+            f"corrupto (proceso cortado a mitad de escritura, o editado a mano). "
+            f"Prueba a borrarlo o repararlo. Detalles: {exc}"
+        ) from exc

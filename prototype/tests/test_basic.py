@@ -22,6 +22,7 @@ from qrb.crypto import (  # noqa: E402
     sign,
     verify,
 )
+from qrb.storage import load_json  # noqa: E402
 from qrb.transaction import Transaction  # noqa: E402
 from qrb.wallet import Wallet  # noqa: E402
 
@@ -207,6 +208,28 @@ def test_invalid_recipient_address_rejected() -> None:
         assert len(chain.mempool) == 0, "tx con destinatario invalido entro al mempool"
 
 
+def test_load_json_corrupt_file_names_the_file() -> None:
+    """load_json debe lanzar ValueError nombrando el archivo si el JSON está
+    corrupto. Regresión correspondiente al issue #10.
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        bad = Path(tmp) / "state.json"
+        bad.write_text("{bad: json}")
+        try:
+            load_json(bad)
+            raise AssertionError("archivo corrupto no detectado")
+        except ValueError as exc:
+            assert "state.json" in str(exc), f"la ruta no aparece en el error: {exc}"
+
+
+def test_load_json_valid_file() -> None:
+    """load_json debe devolver los datos parseados con un JSON válido."""
+    with tempfile.TemporaryDirectory() as tmp:
+        good = Path(tmp) / "ok.json"
+        good.write_text('{"hello": "world"}')
+        assert load_json(good) == {"hello": "world"}
+
+
 def run_all() -> None:
     tests = [
         test_dilithium_sign_verify,
@@ -216,6 +239,8 @@ def run_all() -> None:
         test_double_spend_rejected,
         test_block_proposer_pubkey_must_match_address,
         test_invalid_recipient_address_rejected,
+        test_load_json_corrupt_file_names_the_file,
+        test_load_json_valid_file,
     ]
     for t in tests:
         print(f"  -> {t.__name__} ... ", end="", flush=True)
