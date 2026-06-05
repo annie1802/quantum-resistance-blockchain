@@ -4,9 +4,8 @@ A minimal, honest proof-of-concept in **Rust** that demonstrates the cryptograph
 operation at the heart of QRB's planned EVM precompile: **verifying an ML-DSA-65
 (NIST FIPS 204) signature** — the post-quantum replacement for `ECRECOVER`.
 
-It uses the audited-style pure-Rust [`fips204`](https://crates.io/crates/fips204)
-implementation, so it runs in the same ecosystem as the Reth client QRB will fork
-in Phase 1.
+It uses the pure-Rust [`fips204`](https://crates.io/crates/fips204) implementation,
+so it runs in the same ecosystem as the Reth client QRB will fork in Phase 1.
 
 ## What it proves
 
@@ -14,8 +13,9 @@ in Phase 1.
 - ✅ Tampered signatures **and** altered messages are rejected.
 - ✅ Real sizes match the whitepaper (public key 1,952 B · secret key 4,032 B ·
   signature 3,309 B — vs 33/32/64 for ECDSA).
-- ✅ A verification benchmark (~200 µs/verify on a laptop) — the input to the
-  Phase 1 gas-cost model.
+- ✅ A verification benchmark (~200 µs/verify on a laptop) — a rough single-input
+  timing that feeds the Phase 1 gas-cost model. A production benchmark would use
+  `criterion` with varied inputs; this is deliberately minimal.
 
 ## Run it
 
