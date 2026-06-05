@@ -87,6 +87,8 @@ quantum-resistance-blockchain/
 │   ├── qrb_cli.py                 Command-line interface
 │   ├── tests/                     End-to-end tests
 │   └── README.md                  Prototype setup and usage
+├── poc/
+│   └── ml-dsa-precompile/         Rust PoC: ML-DSA-65 verification (DSARECOVER precompile core)
 ├── marketing/                     Public launch materials (X thread, launch kit)
 ├── .github/workflows/             Continuous integration (GitHub Actions)
 ├── resumen.md                     ~700-word pitch (Spanish)
