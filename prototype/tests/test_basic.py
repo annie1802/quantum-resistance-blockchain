@@ -228,10 +228,39 @@ def test_load_json_valid_file() -> None:
         good = Path(tmp) / "ok.json"
         good.write_text('{"hello": "world"}')
         assert load_json(good) == {"hello": "world"}
+def test_negative_amount_transaction():
+    from qrb.state import WorldState
+    from qrb.transaction import Transaction
 
+    ws = WorldState()
+
+    tx = Transaction("alice", "bob", -10, 0, "fake")
+
+    try:
+        ws.apply_transaction(tx)
+        assert False, "Expected ValueError"
+    except ValueError:
+        pass
+
+
+def test_zero_amount_transaction():
+    from qrb.state import WorldState
+    from qrb.transaction import Transaction
+
+    ws = WorldState()
+
+    tx = Transaction("alice", "bob", 0, 0, "fake")
+
+    try:
+        ws.apply_transaction(tx)
+        assert False, "Expected ValueError"
+    except ValueError:
+        pass
 
 def run_all() -> None:
     tests = [
+        test_negative_amount_transaction,
+        test_zero_amount_transaction,
         test_dilithium_sign_verify,
         test_address_deterministic_and_format,
         test_transaction_sign_verify_tamper,
