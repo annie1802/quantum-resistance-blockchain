@@ -93,8 +93,9 @@ The Phase 0 deliverables are public and verifiable on the project repository, wi
 - Persistence in JSON for transparent inspection (`prototype/qrb/storage.py`).
 - CLI with create/list/balance/send/mine/show commands (`prototype/qrb_cli.py`).
 - End-to-end tests covering signature verification, tampering rejection, double-spend rejection, proposer impersonation rejection (`prototype/tests/test_basic.py`).
-- 24-page whitepaper with full technical and economic specification (`whitepaper/whitepaper-v0.2.pdf`).
-- Public licence: MIT.
+- **Rust proof-of-concept of the `DSARECOVER` precompile core** (`poc/ml-dsa-precompile/`): ML-DSA-65 verification in Rust (via the `fips204` crate), rejecting tampered signatures/messages, with real sizes (1,952 / 4,032 / 3,309 bytes) and a verification benchmark (~200 µs/verify) — the direct starting point and gas-model input for Phase 1 deliverable 1.
+- 24-page whitepaper with full technical and economic specification (`whitepaper/whitepaper-v0.2.pdf`, plus an English version at `whitepaper/whitepaper-v0.2.en.md`).
+- Open source under a dual MIT / Apache-2.0 licence.
 
 The Phase 0 prototype is a single-node, local-only blockchain. It is **not yet an L2** — that is the explicit deliverable of Phase 1, which this grant would fund.
 
