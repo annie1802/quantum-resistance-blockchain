@@ -47,6 +47,9 @@ class WorldState:
         """
         if not tx.is_valid():
             raise ValueError("Firma de transacción inválida")
+            
+            if tx.amount <= 0:
+    raise ValueError(f"amount must be strictly positive, got {tx.amount}")
         expected_nonce = self.nonce_of(tx.sender)
         if tx.nonce != expected_nonce:
             raise ValueError(
