@@ -55,6 +55,7 @@ Key public signals from the past 12 months:
 - **Google internal migration deadline** moved to 2029, six years ahead of the NIST 2035 baseline.
 - **Vitalik Buterin**: "Crypto has until 2028 to avoid quantum collapse."
 - **Jefferies**: 10% reduction in Bitcoin allocation in model portfolios (January 2026), citing quantum risk explicitly.
+- **MITRE / Post-Quantum Cryptography Coalition**: the *PQC Migration Roadmap* (May 2025) frames migration as a four-stage, multi-year organizational effort — reinforcing how slow and hard it is to migrate existing systems, and why a PQ-native chain (which has nothing to migrate) closes the gap faster.
 
 Regulatory pressure tracks the same trajectory: NIS2 (EU, in force October 2024) lists post-quantum resistance among duty-of-care criteria for critical infrastructure; MiCA (in force December 2024) governs future token issuance in this space.
 
