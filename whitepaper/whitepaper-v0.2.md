@@ -504,6 +504,7 @@ La ventana para construir esto se cierra cada mes que pasa. Los algoritmos está
 - Shor, P. (1994). *Algorithms for quantum computation: discrete logarithms and factoring*.
 - Google Quantum AI (2026). Estimaciones revisadas de qubits para romper ECDSA-256.
 - Project Eleven, *Q-Day Prize* (abril 2026).
+- Post-Quantum Cryptography Coalition (MITRE et al.), *PQC Migration Roadmap* (mayo 2025).
 - Documentación técnica de CRYSTALS-Dilithium, FALCON y SPHINCS+.
 - StarkWare Cairo specifications.
 - Bit2Me Academy, *Los mayores robos de Bitcoin y criptomonedas de la historia*.
