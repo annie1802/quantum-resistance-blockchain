@@ -22,7 +22,7 @@ Esto no es ciencia ficción. Es matemática que existe desde 1994 (el algoritmo 
 - Días después, investigadores de **Caltech** y la startup **Atomic** demostraron que con arquitectura basada en átomos controlados por láser, podrían bastar **10.000 qubits**.
 - Los ordenadores cuánticos comerciales actuales **ya tienen entre 1.000 y 2.000 qubits**.
 - En **abril de 2026**, el investigador independiente **Giancarlo Lelli** rompió la primera clave ECC pública (15 bits) con un ordenador cuántico de acceso comercial y ganó el **Q-Day Prize** de Project Eleven (1 BTC).
-- En **enero de 2026**, el banco de inversión **Jeffries** retiró el 10% de su asignación a Bitcoin en sus carteras modelo, citando explícitamente el riesgo cuántico.
+- En **enero de 2026**, el banco de inversión **Jefferies** retiró el 10% de su asignación a Bitcoin en sus carteras modelo, citando explícitamente el riesgo cuántico.
 - **Google** ha adelantado su propio plazo interno de migración post-cuántica al **año 2029**, recortando seis años respecto al plazo del NIST (2035).
 - **Vitalik Buterin** (fundador de Ethereum): *"cripto tiene hasta 2028 para evitar el colapso cuántico."*
 
@@ -442,7 +442,7 @@ QRB no aspira a sustituir a Ethereum ni a Bitcoin. Aspira a ser **la red por def
 
 El proyecto combina:
 
-- Un **problema real y verificable**: la amenaza cuántica documentada por NIST, Google, Caltech, Project Eleven y reconocida por la propia industria (Jeffries, Google, Vitalik).
+- Un **problema real y verificable**: la amenaza cuántica documentada por NIST, Google, Caltech, Project Eleven y reconocida por la propia industria (Jefferies, Google, Vitalik).
 - Una **solución técnica sólida y doble**: PQ para autenticación, STARKs + lattice para privacidad, ambas estandarizadas o sobre supuestos criptográficos conservadores.
 - Una **estrategia de mercado realista**: L2 sobre Ethereum, no L1 desde cero.
 - Una **diferenciación única**: única blockchain con autenticación PQ + privacidad PQ + EVM + Account Abstraction + integración QKD planificada.
@@ -485,7 +485,7 @@ La ventana para construir esto se cierra cada mes que pasa. Los algoritmos está
 - **Diciembre 2024** — MiCA entra en vigor en la UE.
 - **Mayo 2025** — Google revisa su estimación a 1M qubits.
 - **Noviembre 2025** — Investigadores alemanes teleportan información cuántica sobre fibra comercial (Nature).
-- **Enero 2026** — Jeffries reduce 10% de Bitcoin en carteras modelo por riesgo cuántico.
+- **Enero 2026** — Jefferies reduce 10% de Bitcoin en carteras modelo por riesgo cuántico.
 - **Marzo 2026** — Google publica estimación <500K qubits.
 - **Marzo 2026** — Caltech + Atomic publican arquitectura con 10.000 qubits.
 - **Marzo 2026** — Google adelanta su plazo interno de migración a 2029.
@@ -504,10 +504,10 @@ La ventana para construir esto se cierra cada mes que pasa. Los algoritmos está
 - Shor, P. (1994). *Algorithms for quantum computation: discrete logarithms and factoring*.
 - Google Quantum AI (2026). Estimaciones revisadas de qubits para romper ECDSA-256.
 - Project Eleven, *Q-Day Prize* (abril 2026).
+- Post-Quantum Cryptography Coalition (MITRE et al.), *PQC Migration Roadmap* (mayo 2025).
 - Documentación técnica de CRYSTALS-Dilithium, FALCON y SPHINCS+.
 - StarkWare Cairo specifications.
 - Bit2Me Academy, *Los mayores robos de Bitcoin y criptomonedas de la historia*.
-- Vídeo divulgativo en español *"El mayor ROBO de la historia ya HA COMENZADO"* (mayo 2026), del que parte del contexto narrativo de este whitepaper procede.
 
 ---
 

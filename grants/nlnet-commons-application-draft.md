@@ -55,6 +55,7 @@ Key public signals from the past 12 months:
 - **Google internal migration deadline** moved to 2029, six years ahead of the NIST 2035 baseline.
 - **Vitalik Buterin**: "Crypto has until 2028 to avoid quantum collapse."
 - **Jefferies**: 10% reduction in Bitcoin allocation in model portfolios (January 2026), citing quantum risk explicitly.
+- **MITRE / Post-Quantum Cryptography Coalition**: the *PQC Migration Roadmap* (May 2025) frames migration as a four-stage, multi-year organizational effort — reinforcing how slow and hard it is to migrate existing systems, and why a PQ-native chain (which has nothing to migrate) closes the gap faster.
 
 Regulatory pressure tracks the same trajectory: NIS2 (EU, in force October 2024) lists post-quantum resistance among duty-of-care criteria for critical infrastructure; MiCA (in force December 2024) governs future token issuance in this space.
 
@@ -93,8 +94,9 @@ The Phase 0 deliverables are public and verifiable on the project repository, wi
 - Persistence in JSON for transparent inspection (`prototype/qrb/storage.py`).
 - CLI with create/list/balance/send/mine/show commands (`prototype/qrb_cli.py`).
 - End-to-end tests covering signature verification, tampering rejection, double-spend rejection, proposer impersonation rejection (`prototype/tests/test_basic.py`).
-- 24-page whitepaper with full technical and economic specification (`whitepaper/whitepaper-v0.2.pdf`).
-- Public licence: MIT.
+- **Rust proof-of-concept of the `DSARECOVER` precompile core** (`poc/ml-dsa-precompile/`): ML-DSA-65 verification in Rust (via the `fips204` crate), rejecting tampered signatures/messages, with real sizes (1,952 / 4,032 / 3,309 bytes) and a verification benchmark (~200 µs/verify) — the direct starting point and gas-model input for Phase 1 deliverable 1.
+- 24-page whitepaper with full technical and economic specification (`whitepaper/whitepaper-v0.2.pdf`, plus an English version at `whitepaper/whitepaper-v0.2.en.md`).
+- Open source under a dual MIT / Apache-2.0 licence.
 
 The Phase 0 prototype is a single-node, local-only blockchain. It is **not yet an L2** — that is the explicit deliverable of Phase 1, which this grant would fund.
 

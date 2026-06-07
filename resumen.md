@@ -6,11 +6,11 @@
 
 ## En una frase
 
-QRB es la primera capa 2 (L2) sobre Ethereum diseñada desde el origen para ser resistente a ordenadores cuánticos, permitiendo a usuarios y aplicaciones existentes proteger sus activos digitales sin abandonar el ecosistema Ethereum.
+QRB es una línea de investigación y prototipo para una capa 2 (L2) sobre Ethereum diseñada desde el origen para ser resistente a ordenadores cuánticos, con el objetivo de permitir a usuarios y aplicaciones existentes proteger sus activos digitales sin abandonar el ecosistema Ethereum.
 
 ## Por qué importa
 
-Toda la criptografía que protege Bitcoin, Ethereum y casi cualquier blockchain hoy puede ser rota por un ordenador cuántico suficientemente grande. Los expertos estiman su aparición entre 2030 y 2040.
+Toda la criptografía que protege Bitcoin, Ethereum y casi cualquier blockchain hoy puede ser rota por un ordenador cuántico suficientemente grande. El consenso experto sobre su llegada se ha contraído en los últimos dos años desde "2040 o más tarde" hasta una ventana de **2028-2032** (la fecha exacta sigue siendo incierta).
 
 Mientras tanto, actores estatales y privados ya almacenan transacciones cifradas para descifrarlas cuando esos ordenadores existan ("harvest now, decrypt later"). La regulación europea (NIS2, MiCA) y americana (NIST 2024, CNSA 2.0) ya empieza a exigir resistencia cuántica para infraestructura crítica.
 
@@ -80,4 +80,4 @@ Cualquier contribución significativa accede a asignación de la categoría "Eco
 
 ---
 
-*Proyecto open source · Licencia MIT / Apache-2.0 · Repositorio público al cierre de Fase 0.*
+*Proyecto open source · Licencia dual MIT / Apache-2.0 · Repositorio público en GitHub.*

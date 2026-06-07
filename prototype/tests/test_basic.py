@@ -22,6 +22,8 @@ from qrb.crypto import (  # noqa: E402
     sign,
     verify,
 )
+from qrb.state import WorldState  # noqa: E402
+from qrb.storage import load_json  # noqa: E402
 from qrb.transaction import Transaction  # noqa: E402
 from qrb.wallet import Wallet  # noqa: E402
 
@@ -207,6 +209,73 @@ def test_invalid_recipient_address_rejected() -> None:
         assert len(chain.mempool) == 0, "tx con destinatario invalido entro al mempool"
 
 
+def test_load_json_corrupt_file_names_the_file() -> None:
+    """load_json debe lanzar ValueError nombrando el archivo si el JSON está
+    corrupto. Regresión correspondiente al issue #10.
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        bad = Path(tmp) / "state.json"
+        bad.write_text("{bad: json}")
+        try:
+            load_json(bad)
+            raise AssertionError("archivo corrupto no detectado")
+        except ValueError as exc:
+            assert "state.json" in str(exc), f"la ruta no aparece en el error: {exc}"
+
+
+def test_load_json_valid_file() -> None:
+    """load_json debe devolver los datos parseados con un JSON válido."""
+    with tempfile.TemporaryDirectory() as tmp:
+        good = Path(tmp) / "ok.json"
+        good.write_text('{"hello": "world"}')
+        assert load_json(good) == {"hello": "world"}
+
+
+def test_apply_transaction_rejects_negative_amount() -> None:
+    """apply_transaction debe rechazar montos negativos AUNQUE la firma sea
+    válida (defensa en profundidad). Regresión del issue #11.
+
+    Clave: la transacción va FIRMADA de verdad, para que pase el control de
+    firma y llegue al control de monto — si no, fallaría antes por la firma
+    y no estaríamos probando lo que queremos.
+    """
+    sender = Wallet.create("sender")
+    recipient = Wallet.create("recipient")
+    state = WorldState()
+    state.credit(sender.address, 1_000)
+
+    tx = Transaction(
+        sender=sender.address, recipient=recipient.address, amount=-100, nonce=0
+    )
+    tx.sign_with(sender.public_key, sender.private_key)  # firma VÁLIDA
+    try:
+        state.apply_transaction(tx)
+        raise AssertionError("monto negativo no rechazado")
+    except ValueError as exc:
+        assert "positivo" in str(exc), f"rechazado por otra razón: {exc}"
+    # El estado no debe haber cambiado.
+    assert state.balance_of(sender.address) == 1_000
+    assert state.balance_of(recipient.address) == 0
+
+
+def test_apply_transaction_rejects_zero_amount() -> None:
+    """apply_transaction debe rechazar también el monto cero (issue #11)."""
+    sender = Wallet.create("sender")
+    recipient = Wallet.create("recipient")
+    state = WorldState()
+    state.credit(sender.address, 1_000)
+
+    tx = Transaction(
+        sender=sender.address, recipient=recipient.address, amount=0, nonce=0
+    )
+    tx.sign_with(sender.public_key, sender.private_key)
+    try:
+        state.apply_transaction(tx)
+        raise AssertionError("monto cero no rechazado")
+    except ValueError as exc:
+        assert "positivo" in str(exc), f"rechazado por otra razón: {exc}"
+
+
 def run_all() -> None:
     tests = [
         test_dilithium_sign_verify,
@@ -216,6 +285,10 @@ def run_all() -> None:
         test_double_spend_rejected,
         test_block_proposer_pubkey_must_match_address,
         test_invalid_recipient_address_rejected,
+        test_load_json_corrupt_file_names_the_file,
+        test_load_json_valid_file,
+        test_apply_transaction_rejects_negative_amount,
+        test_apply_transaction_rejects_zero_amount,
     ]
     for t in tests:
         print(f"  -> {t.__name__} ... ", end="", flush=True)

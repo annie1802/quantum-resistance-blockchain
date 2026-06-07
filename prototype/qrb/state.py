@@ -29,6 +29,8 @@ class WorldState:
         return self.accounts.get(address, AccountState()).nonce
 
     def credit(self, address: str, amount: int) -> None:
+        if amount < 0:
+            raise ValueError(f"no se puede acreditar un monto negativo: {amount}")
         self._ensure(address).balance += amount
 
     def debit(self, address: str, amount: int) -> None:
@@ -47,6 +49,10 @@ class WorldState:
         """
         if not tx.is_valid():
             raise ValueError("Firma de transacción inválida")
+        if tx.amount <= 0:
+            raise ValueError(
+                f"el monto debe ser estrictamente positivo, recibido {tx.amount}"
+            )
         expected_nonce = self.nonce_of(tx.sender)
         if tx.nonce != expected_nonce:
             raise ValueError(

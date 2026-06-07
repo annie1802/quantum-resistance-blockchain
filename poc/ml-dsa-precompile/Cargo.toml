@@ -1,0 +1,9 @@
+[package]
+name = "ml-dsa-precompile-poc"
+version = "0.1.0"
+edition = "2021"
+description = "QRB proof-of-concept: ML-DSA-65 (FIPS 204) verification, the core of the planned DSARECOVER EVM precompile."
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+fips204 = "0.4"
