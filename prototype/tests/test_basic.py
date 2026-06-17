@@ -26,6 +26,7 @@ from qrb.state import WorldState  # noqa: E402
 from qrb.storage import load_json  # noqa: E402
 from qrb.transaction import Transaction  # noqa: E402
 from qrb.wallet import Wallet  # noqa: E402
+from qrb_cli import cmd_chain_block_inspect
 
 
 def test_dilithium_sign_verify() -> None:
@@ -376,6 +377,75 @@ def test_get_block_nonexistent_index_returns_none() -> None:
         assert chain.get_block(99) is None, "índice alto debe devolver None"
         assert chain.get_block(-1) is None, "índice negativo debe devolver None"
 
+def test_block_inspect_not_found() -> None:
+    import argparse
+
+    try:
+        cmd_chain_block_inspect(
+            argparse.Namespace(index=999)
+        )
+        raise AssertionError("missing block not rejected")
+    except SystemExit:
+        pass
+
+def test_block_inspect_happy_path() -> None:
+    import argparse
+    import io
+    from contextlib import redirect_stdout
+
+    with tempfile.TemporaryDirectory() as tmp:
+        data_dir = Path(tmp)
+        wallets_dir = data_dir / "wallets"
+
+        founder = Wallet.create("founder")
+        founder.save(wallets_dir)
+
+        alice = Wallet.create("alice")
+        alice.save(wallets_dir)
+
+        chain = Chain(data_dir)
+        chain.init_genesis(founder.address, 1000)
+
+        tx = Transaction(
+            sender=founder.address,
+            recipient=alice.address,
+            amount=100,
+            nonce=0,
+        )
+
+        tx.sign_with(founder.public_key, founder.private_key)
+
+        chain.add_to_mempool(tx)
+
+        chain.propose_block(
+            founder.address,
+            founder.public_key,
+            founder.private_key,
+        )
+
+        import qrb_cli
+
+        old_dir = qrb_cli.DATA_DIR
+        qrb_cli.DATA_DIR = data_dir
+
+        try:
+            output = io.StringIO()
+
+            with redirect_stdout(output):
+                cmd_chain_block_inspect(
+                    argparse.Namespace(index=1)
+                )
+
+            text = output.getvalue()
+
+            assert "Bloque #1" in text
+            assert "Hash:" in text
+            assert "Firma" in text
+            assert "..." in text
+
+        finally:
+            qrb_cli.DATA_DIR = old_dir
+
 
 def run_all() -> None:
     tests = [
@@ -394,6 +464,8 @@ def run_all() -> None:
         test_future_nonce_rejected_in_mempool,
         test_unfunded_sender_rejected_in_mempool,
         test_get_block_nonexistent_index_returns_none,
+        test_block_inspect_happy_path,
+        test_block_inspect_not_found,
     ]
     for t in tests:
         print(f"  -> {t.__name__} ... ", end="", flush=True)
