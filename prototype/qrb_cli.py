@@ -189,7 +189,43 @@ def build_parser() -> argparse.ArgumentParser:
     cb.add_argument("--index", type=int, required=True)
     cb.set_defaults(func=cmd_chain_block)
 
+    cbi = cs.add_parser(
+    "block-inspect",
+    help="Inspeccionar un bloque"
+)
+cbi.add_argument("--index", type=int, required=True)
+cbi.set_defaults(func=cmd_chain_block_inspect)
+
     return parser
+
+def cmd_chain_block_inspect(args: argparse.Namespace) -> None:
+    chain = Chain(DATA_DIR)
+    block = chain.get_block(args.index)
+
+    if not block:
+        print(
+            f"ERROR: no existe el bloque #{args.index}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    print(f"Bloque #{block.index}")
+    print(f"Hash: {block.hash()}")
+    print(f"Hash anterior: {block.previous_hash}")
+    print(f"Timestamp: {block.timestamp}")
+    print(f"Proponente: {block.proposer_address}")
+    print(f"Transacciones: {len(block.transactions)}")
+
+    sig = block.proposer_signature.hex()
+    if len(sig) > 32:
+        sig = sig[:16] + "..." + sig[-16:]
+
+    print(f"Firma: {sig}")
+
+    for tx in block.transactions:
+        print(
+            f"- {tx.sender} -> {tx.recipient} ({tx.amount} QRB)"
+        )
 
 
 def main() -> None:
