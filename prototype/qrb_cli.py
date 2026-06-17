@@ -134,6 +134,37 @@ def cmd_chain_show(args: argparse.Namespace) -> None:
     print(f"Cuentas:     {len(chain.state.accounts)} con saldo o nonce > 0")
     print(f"Ultimo hash: {chain.last_hash()}")
 
+def cmd_chain_block_inspect(args: argparse.Namespace) -> None:
+    chain = Chain(DATA_DIR)
+
+    block = chain.get_block(args.index)
+
+    if block is None:
+        print(
+            f"Bloque {args.index} no encontrado",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    print(f"Bloque #{block.index}")
+    print(f"Hash: {block.hash()}")
+    print(f"Timestamp: {block.timestamp}")
+    print(f"Hash anterior: {block.previous_hash}")
+    print(f"Proponente: {block.proposer_address}")
+    print(f"Transacciones: {len(block.transactions)}")
+
+    for tx in block.transactions:
+        print(
+            f"TX: {tx.sender} -> {tx.recipient} | amount={tx.amount}"
+        )
+
+    sig = block.proposer_signature.hex()
+
+    if len(sig) > 32:
+        sig = sig[:16] + "..." + sig[-16:]
+
+    print(f"Firma: {sig}")
+
 
 def cmd_chain_block(args: argparse.Namespace) -> None:
     chain = Chain(DATA_DIR)
@@ -188,6 +219,13 @@ def build_parser() -> argparse.ArgumentParser:
     cb = cs.add_parser("block", help="Mostrar un bloque por indice")
     cb.add_argument("--index", type=int, required=True)
     cb.set_defaults(func=cmd_chain_block)
+
+    cbi = cs.add_parser(
+    "block-inspect",
+    help="Mostrar un bloque de forma legible",
+)
+cbi.add_argument("--index", type=int, required=True)
+cbi.set_defaults(func=cmd_chain_block_inspect)
 
     return parser
 
