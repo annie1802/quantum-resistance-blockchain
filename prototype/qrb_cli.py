@@ -138,10 +138,43 @@ def cmd_chain_show(args: argparse.Namespace) -> None:
 def cmd_chain_block(args: argparse.Namespace) -> None:
     chain = Chain(DATA_DIR)
     block = chain.get_block(args.index)
-    if not block:
-        print(f"ERROR: no existe el bloque #{args.index}", file=sys.stderr)
-        sys.exit(1)
+ if block is None:
+    print(
+        f"ERROR: no existe el bloque #{args.index}",
+        file=sys.stderr,
+    )
+    sys.exit(1) 
     print(_json.dumps(block.to_dict(), indent=2))
+
+def cmd_chain_block_inspect(args: argparse.Namespace) -> None:
+    chain = Chain(DATA_DIR)
+
+    block = chain.get_block(args.index)
+
+    if block is None:
+        print(
+            f"ERROR: no existe el bloque #{args.index}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    print(f"Bloque #{block.index}")
+    print(f"Hash: {block.hash()}")
+    print(f"Hash anterior: {block.previous_hash}")
+    print(f"Timestamp: {block.timestamp}")
+    print(f"Proponente: {block.proposer_address}")
+    print(f"Transacciones: {len(block.transactions)}")
+
+    sig = block.proposer_signature.hex()
+    if len(sig) > 32:
+        sig = sig[:16] + " ... " + sig[-16:]
+
+    print(f"Firma: {sig}")
+
+    for tx in block.transactions:
+        print(
+            f"- {tx.sender} -> {tx.recipient} ({tx.amount} QRB)"
+        )
 
 
 def build_parser() -> argparse.ArgumentParser:
